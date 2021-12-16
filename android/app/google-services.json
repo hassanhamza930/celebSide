@@ -1,0 +1,151 @@
+{
+  "project_info": {
+    "project_number": "948800714095",
+    "firebase_url": "https://funnel-887b0.firebaseio.com",
+    "project_id": "funnel-887b0",
+    "storage_bucket": "funnel-887b0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948800714095:android:d0a8ad5421254c433ba49a",
+        "android_client_info": {
+          "package_name": "com.brackets.celebrityapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948800714095-4s0q8ukhugvo26q628johvb160tnpacr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brackets.celebrityapp",
+            "certificate_hash": "b88a5b6fd0c9a135714b64b9ae0e554cf3fde749"
+          }
+        },
+        {
+          "client_id": "948800714095-m7p6cr3khvjmmhhnrrmvn9lfgglspo33.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brackets.celebrityapp",
+            "certificate_hash": "12df0b99306e4f81183d423681d9539582657082"
+          }
+        },
+        {
+          "client_id": "948800714095-hr1g8553ve0lqfgmnipa3nmqv2v6d5n1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg8mAdbFunrN__gJ4ea_AHryJWAm_hM_o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948800714095-hr1g8553ve0lqfgmnipa3nmqv2v6d5n1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "948800714095-e7i9bnnn6liv1mkr6kk6t07rkgv3k8qh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.brackets.celebrityappios"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948800714095:android:cdda50f0df8b69043ba49a",
+        "android_client_info": {
+          "package_name": "com.brackets.celebside.celebside"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948800714095-2dpgg2q6pd9i2h3rv40a8rp1mols47v5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brackets.celebside.celebside",
+            "certificate_hash": "871cfadb4280b3d489125a6cd07e5ab4966bda4b"
+          }
+        },
+        {
+          "client_id": "948800714095-hr1g8553ve0lqfgmnipa3nmqv2v6d5n1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg8mAdbFunrN__gJ4ea_AHryJWAm_hM_o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948800714095-hr1g8553ve0lqfgmnipa3nmqv2v6d5n1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "948800714095-e7i9bnnn6liv1mkr6kk6t07rkgv3k8qh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.brackets.celebrityappios"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948800714095:android:cb1ba1dbd5c9528f3ba49a",
+        "android_client_info": {
+          "package_name": "com.brackets.userside"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948800714095-cpdlchu67ev2dvvo3vbllk2661n4nvkv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brackets.userside",
+            "certificate_hash": "871cfadb4280b3d489125a6cd07e5ab4966bda4b"
+          }
+        },
+        {
+          "client_id": "948800714095-hr1g8553ve0lqfgmnipa3nmqv2v6d5n1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg8mAdbFunrN__gJ4ea_AHryJWAm_hM_o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948800714095-hr1g8553ve0lqfgmnipa3nmqv2v6d5n1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "948800714095-e7i9bnnn6liv1mkr6kk6t07rkgv3k8qh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.brackets.celebrityappios"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
