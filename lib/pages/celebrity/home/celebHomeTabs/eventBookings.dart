@@ -44,33 +44,42 @@ class _celebHomePageEventBookingRequestsRowState extends State<celebHomePageEven
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundImage: NetworkImage("${userData["imgSrc"]}"),
+                            Flexible(
+                              flex: 1,
+                              child: CircleAvatar(
+                                radius: 30,
+                                backgroundImage: NetworkImage("${userData["imgSrc"]}"),
+                              ),
                             ),
                             SizedBox(
                               width: 10,
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${userData["fullName"]}",
-                                  style: TextStyle(
-                                    fontFamily: "Avenir",
-                                    fontSize: 17,
+                            Flexible(
+                              flex: 3,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "${userData["fullName"]}",
+                                    style: TextStyle(
+                                      fontFamily: "Avenir",
+                                      overflow: TextOverflow.fade,
+                                      fontSize: 17,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  "${widget.data["createdAt"].toDate().toString().split(" ")[0]}",
-                                  style: TextStyle(
-                                    fontFamily: "Avenir",
-                                    fontSize: 14,
+                                  Text(
+                                    "${widget.data["createdAt"].toDate().toString().split(" ")[0]}",
+                                    style: TextStyle(
+                                      fontFamily: "Avenir",
+                                      fontSize: 14,
+                                    ),
+                                    textAlign: TextAlign.left,
                                   ),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ],
+                                ],
+                              ),
                             )
                           ],
                         ),
@@ -83,29 +92,36 @@ class _celebHomePageEventBookingRequestsRowState extends State<celebHomePageEven
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Request For",
-                              style: TextStyle(
-                                  fontFamily: "Avenir",
-                                  fontSize: 14,
-                                  color: Colors.black),
+                            Flexible(
+                              child: Text(
+                                "Request For",
+                                style: TextStyle(
+                                    fontFamily: "Avenir",
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
                             ),
                             SizedBox(width: 10,),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.book,
-                                  color: Colors.blue,
-                                ),
-                                SizedBox(width: 5,),
-                                Text(
-                                  "Event Booking",
-                                  style: TextStyle(
-                                      fontFamily: "Avenir",
-                                      fontSize: 14,
-                                      color: Colors.black),
-                                ),
-                              ],
+                            Flexible(
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.book,
+                                    color: Colors.blue,
+                                  ),
+                                  SizedBox(width: 5,),
+                                  Flexible(
+                                    child: Text(
+                                      "Event Booking",
+                                      style: TextStyle(
+                                          fontFamily: "Avenir",
+                                          fontSize: 14,
+                                          color: Colors.black
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             )
                           ],
                         ),
@@ -115,16 +131,20 @@ class _celebHomePageEventBookingRequestsRowState extends State<celebHomePageEven
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Full Name",
-                              style: TextStyle(
-                                  fontFamily: "Avenir",
-                                  fontSize: 14,
-                                  color: Colors.black),
+                            Flexible(
+                              child: Text(
+                                "Full Name",
+                                style: TextStyle(
+                                    fontFamily: "Avenir",
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
                             ),
-                            Text(
-                              "${widget.data["fullName"]}",
-                              style: small(color: Colors.orange,size: 14),
+                            Flexible(
+                              child: Text(
+                                "${widget.data["fullName"]}",
+                                style: small(color: Colors.orange,size: 14),
+                              ),
                             )
                           ],
                         ),
@@ -137,21 +157,25 @@ class _celebHomePageEventBookingRequestsRowState extends State<celebHomePageEven
                                 style: small(color: Colors.black,size: 14),
                               ),
                             ),
-                            Text(
-                              "${widget.data["organization"]}",
-                              style: small(color: Colors.orange,size: 14),
+                            Flexible(
+                              child: Text(
+                                "${widget.data["organization"]}",
+                                style: small(color: Colors.orange,size: 14),
+                              ),
                             )
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Booking Type",
-                              style: TextStyle(
-                                  fontFamily: "Avenir",
-                                  fontSize: 14,
-                                  color: Colors.black),
+                            Flexible(
+                              child: Text(
+                                "Booking Type",
+                                style: TextStyle(
+                                    fontFamily: "Avenir",
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
                             ),
                             Flexible(
                               child: Text(
@@ -165,12 +189,14 @@ class _celebHomePageEventBookingRequestsRowState extends State<celebHomePageEven
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Booking Reason",
-                              style: TextStyle(
-                                  fontFamily: "Avenir",
-                                  fontSize: 14,
-                                  color: Colors.black),
+                            Flexible(
+                              child: Text(
+                                "Booking Reason",
+                                style: TextStyle(
+                                    fontFamily: "Avenir",
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
                             ),
                             Flexible(
                               child: Text(
@@ -184,12 +210,14 @@ class _celebHomePageEventBookingRequestsRowState extends State<celebHomePageEven
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Appearance Duration",
-                              style: TextStyle(
-                                  fontFamily: "Avenir",
-                                  fontSize: 14,
-                                  color: Colors.black),
+                            Flexible(
+                              child: Text(
+                                "Appearance Duration",
+                                style: TextStyle(
+                                    fontFamily: "Avenir",
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
                             ),
                             Flexible(
                               child: Text(
@@ -203,96 +231,120 @@ class _celebHomePageEventBookingRequestsRowState extends State<celebHomePageEven
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Private or Public Event",
-                              style: TextStyle(
-                                  fontFamily: "Avenir",
-                                  fontSize: 14,
-                                  color: Colors.black),
+                            Flexible(
+                              child: Text(
+                                "Private or Public Event",
+                                style: TextStyle(
+                                    fontFamily: "Avenir",
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
                             ),
-                            Text(
-                              "${widget.data["private"]==true?"Private":"Public"}",
-                              style: small(color: Colors.orange,size: 14),
+                            Flexible(
+                              child: Text(
+                                "${widget.data["private"]==true?"Private":"Public"}",
+                                style: small(color: Colors.orange,size: 14),
+                              ),
                             )
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Budget",
-                              style: TextStyle(
-                                  fontFamily: "Avenir",
-                                  fontSize: 14,
-                                  color: Colors.black),
+                            Flexible(
+                              child: Text(
+                                "Budget",
+                                style: TextStyle(
+                                    fontFamily: "Avenir",
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
                             ),
-                            Text(
-                              "¢${ double.parse('${widget.data["quotation"]}').floor() }",
-                              style: small(color: Colors.orange,size: 14),
+                            Flexible(
+                              child: Text(
+                                "¢${ double.parse('${widget.data["quotation"]}').floor() }",
+                                style: small(color: Colors.orange,size: 14),
+                              ),
                             )
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Date",
-                              style: TextStyle(
-                                  fontFamily: "Avenir",
-                                  fontSize: 14,
-                                  color: Colors.black),
+                            Flexible(
+                              child: Text(
+                                "Date",
+                                style: TextStyle(
+                                    fontFamily: "Avenir",
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
                             ),
-                            Text(
-                              "${widget.data["date"].toDate().toString().split(" ")[0]}",
-                              style: small(color: Colors.orange,size: 14),
+                            Flexible(
+                              child: Text(
+                                "${widget.data["date"].toDate().toString().split(" ")[0]}",
+                                style: small(color: Colors.orange,size: 14),
+                              ),
                             )
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Time Start",
-                              style: TextStyle(
-                                  fontFamily: "Avenir",
-                                  fontSize: 14,
-                                  color: Colors.black),
+                            Flexible(
+                              child: Text(
+                                "Time Start",
+                                style: TextStyle(
+                                    fontFamily: "Avenir",
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
                             ),
-                            Text(
-                              "${widget.data["timeStart"]} ${widget.data["startFormat"]}",
-                              style: small(color: Colors.orange,size: 14),
+                            Flexible(
+                              child: Text(
+                                "${widget.data["timeStart"]} ${widget.data["startFormat"]}",
+                                style: small(color: Colors.orange,size: 14),
+                              ),
                             )
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Time End",
-                              style: TextStyle(
-                                  fontFamily: "Avenir",
-                                  fontSize: 14,
-                                  color: Colors.black),
+                            Flexible(
+                              child: Text(
+                                "Time End",
+                                style: TextStyle(
+                                    fontFamily: "Avenir",
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
                             ),
-                            Text(
-                              "${widget.data["timeEnd"]} ${widget.data["endFormat"]}",
-                              style: small(color: Colors.orange,size: 14),
+                            Flexible(
+                              child: Text(
+                                "${widget.data["timeEnd"]} ${widget.data["endFormat"]}",
+                                style: small(color: Colors.orange,size: 14),
+                              ),
                             )
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Venue",
-                              style: TextStyle(
-                                  fontFamily: "Avenir",
-                                  fontSize: 14,
-                                  color: Colors.black),
+                            Flexible(
+                              child: Text(
+                                "Venue",
+                                style: TextStyle(
+                                    fontFamily: "Avenir",
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
                             ),
-                            Text(
-                              "${widget.data["venueName"]}",
-                              style: small(color: Colors.orange,size: 14),
+                            Flexible(
+                              child: Text(
+                                "${widget.data["venueName"]}",
+                                style: small(color: Colors.orange,size: 14),
+                              ),
                             )
                           ],
                         ),
@@ -315,32 +367,40 @@ class _celebHomePageEventBookingRequestsRowState extends State<celebHomePageEven
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Number Guest",
-                              style: TextStyle(
-                                  fontFamily: "Avenir",
-                                  fontSize: 14,
-                                  color: Colors.black),
+                            Flexible(
+                              child: Text(
+                                "Number Guest",
+                                style: TextStyle(
+                                    fontFamily: "Avenir",
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
                             ),
-                            Text(
-                              "${widget.data["numberOfGuests"]}",
-                              style: small(color: Colors.orange,size: 14),
+                            Flexible(
+                              child: Text(
+                                "${widget.data["numberOfGuests"]}",
+                                style: small(color: Colors.orange,size: 14),
+                              ),
                             )
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Reason for appearance",
-                              style: TextStyle(
-                                  fontFamily: "Avenir",
-                                  fontSize: 14,
-                                  color: Colors.black),
+                            Flexible(
+                              child: Text(
+                                "Reason for appearance",
+                                style: TextStyle(
+                                    fontFamily: "Avenir",
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
                             ),
-                            Text(
-                              "${widget.data["reasonForAppearance"]}",
-                              style: small(color: Colors.orange,size: 14),
+                            Flexible(
+                              child: Text(
+                                "${widget.data["reasonForAppearance"]}",
+                                style: small(color: Colors.orange,size: 14),
+                              ),
                             )
                           ],
                         ),

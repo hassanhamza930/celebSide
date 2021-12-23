@@ -124,7 +124,7 @@ class _payoutsState extends State<payouts> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    AutoSizeText("¢${data["wallet"]}",maxLines: 1,style: mediumBold(color: Colors.white,size: 50),),
+                                    AutoSizeText("¢${double.parse("${data["wallet"]}").ceil()}",maxLines: 1,style: mediumBold(color: Colors.white,size: 50),),
                                   ],
                                 )
                               ],

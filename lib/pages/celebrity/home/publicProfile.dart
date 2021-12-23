@@ -11,6 +11,7 @@ import 'package:celebside/pages/celebrity/home/celebrityHome.dart' as Home;
 import 'package:celebside/pages/home/featuredVideoPlayer/featuredVideoPlayer.dart';
 import 'package:celebside/pages/home/home.dart';
 import 'package:celebside/pages/home/videoPlayer/videoPlayer.dart';
+import 'package:celebside/pages/util/components.dart';
 import 'package:celebside/services/dynamicLinks.dart';
 import 'package:celebside/util/styles.dart';
 import 'package:clipboard_manager/clipboard_manager.dart';
@@ -186,6 +187,7 @@ class _publicProfileState extends State<publicProfile> {
                                             await ClipboardManager.copyToClipBoard("${link}");
                                             print(link);
                                             print("copied");
+                                            showMessage(context: context, message: "Profile Link Copied");
 
                                           },
                                           child: Icon(Icons.share,color: Colors.white,)

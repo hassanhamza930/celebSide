@@ -30,10 +30,9 @@ class _celebrityHomePageRequestsVideoRequestsState extends State<celebrityHomePa
 
   @override
   void initState() {
-    // TODO: implement initState
     getCelebrityData(id: FirebaseAuth.instance.currentUser.uid).then((value) {
      celebData=value;
-      update();
+      Future.delayed(Duration(seconds: 1),(){update();});
     });
     super.initState();
   }
@@ -71,34 +70,41 @@ class _celebrityHomePageRequestsVideoRequestsState extends State<celebrityHomePa
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundImage: NetworkImage(
-                              "${userData["imgSrc"]}"
+                        Flexible(
+                          flex: 1,
+                          child: CircleAvatar(
+                            radius: 30,
+                            backgroundImage: NetworkImage(
+                                "${userData["imgSrc"]}"
+                            ),
                           ),
                         ),
                         SizedBox(
                           width: 10,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${userData["fullName"]}",
-                              style: TextStyle(
-                                fontFamily: "Avenir",
-                                fontSize: 17,
+                        Flexible(
+                          flex: 3,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${userData["fullName"]}",
+                                style: TextStyle(
+                                  fontFamily: "Avenir",
+                                  fontSize: 17,
+                                ),
                               ),
-                            ),
-                            Text(
-                              "${data["createdAt"].toDate().toString().split(" ")[0]}",
-                              style: TextStyle(
-                                fontFamily: "Avenir",
-                                fontSize: 14,
+                              SizedBox(height: 10,),
+                              Text(
+                                "${data["createdAt"].toDate().toString().split(" ")[0]}",
+                                style: TextStyle(
+                                  fontFamily: "Avenir",
+                                  fontSize: 14,
+                                ),
+                                textAlign: TextAlign.left,
                               ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ],
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -122,28 +128,32 @@ class _celebrityHomePageRequestsVideoRequestsState extends State<celebrityHomePa
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Request For",
-                          style: TextStyle(
-                              fontFamily: "Avenir",
-                              fontSize: 14,
-                              color: Colors.black),
+                        Flexible(
+                          child: Text(
+                            "Request For",
+                            style: TextStyle(
+                                fontFamily: "Avenir",
+                                fontSize: 14,
+                                color: Colors.black),
+                          ),
                         ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.videocam_sharp,
-                              color: Colors.orange,
-                            ),
-                            SizedBox(width: 5,),
-                            Text(
-                              "${data["videoFor"]}",
-                              style: TextStyle(
-                                  fontFamily: "Avenir",
-                                  fontSize: 14,
-                                  color: Colors.black),
-                            ),
-                          ],
+                        Flexible(
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.videocam_sharp,
+                                color: Colors.orange,
+                              ),
+                              SizedBox(width: 5,),
+                              Text(
+                                "${data["videoFor"]}",
+                                style: TextStyle(
+                                    fontFamily: "Avenir",
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -153,19 +163,23 @@ class _celebrityHomePageRequestsVideoRequestsState extends State<celebrityHomePa
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Booked For",
-                          style: TextStyle(
-                              fontFamily: "Avenir",
-                              fontSize: 14,
-                              color: Colors.black),
+                        Flexible(
+                          child: Text(
+                            "Booked For",
+                            style: TextStyle(
+                                fontFamily: "Avenir",
+                                fontSize: 14,
+                                color: Colors.black),
+                          ),
                         ),
-                        Text(
-                          "${data["videoPerson"]}",
-                          style: TextStyle(
-                              fontFamily: "Avenir",
-                              fontSize: 14,
-                              color: Colors.black),
+                        Flexible(
+                          child: Text(
+                            "${data["videoPerson"]}",
+                            style: TextStyle(
+                                fontFamily: "Avenir",
+                                fontSize: 14,
+                                color: Colors.black),
+                          ),
                         )
                       ],
                     ),
@@ -175,19 +189,23 @@ class _celebrityHomePageRequestsVideoRequestsState extends State<celebrityHomePa
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Respond Before",
-                          style: TextStyle(
-                              fontFamily: "Avenir",
-                              fontSize: 14,
-                              color: Colors.black),
+                        Flexible(
+                          child: Text(
+                            "Respond Before",
+                            style: TextStyle(
+                                fontFamily: "Avenir",
+                                fontSize: 14,
+                                color: Colors.black),
+                          ),
                         ),
-                        Text(
-                          celebData==null?"":"${data["createdAt"].toDate().add(Duration(days:int.parse("${celebData["videoRequest"]["responseTime"]}") ))}".split(" ")[0],
-                          style: TextStyle(
-                              fontFamily: "AvenirBold",
-                              fontSize: 14,
-                              color: Colors.black),
+                        Flexible(
+                          child: Text(
+                            celebData==null?"":"${data["createdAt"].toDate().add(Duration(days:int.parse("${celebData["videoRequest"]["responseTime"]}") ))}".split(" ")[0],
+                            style: TextStyle(
+                                fontFamily: "AvenirBold",
+                                fontSize: 14,
+                                color: Colors.black),
+                          ),
                         )
                       ],
                     ),

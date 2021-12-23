@@ -278,11 +278,11 @@ class _celebFanClubState extends State<celebFanClub> {
                                   members.forEach((element)async{
 
                                     var celebrityName=data["fullName"];
-
                                     await addNotifications(type:"fanClub",target: "user", message: "$celebrityName has sent a message in fan club.", String: String, from: FirebaseAuth.instance.currentUser.uid, to: element);
 
                                   });
 
+                                  message.text='';
                                   Navigator.pop(context);
 
                                 }

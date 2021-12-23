@@ -47,34 +47,40 @@ class _celebrityHomePageDmRequestRowState extends State<celebrityHomePageDmReque
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundImage: NetworkImage(
-                              "${userData["imgSrc"]}"
+                        Flexible(
+                          flex: 1,
+                          child: CircleAvatar(
+                            radius: 30,
+                            backgroundImage: NetworkImage(
+                                "${userData["imgSrc"]}"
+                            ),
                           ),
                         ),
                         SizedBox(
                           width: 10,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${userData["fullName"]}",
-                              style: TextStyle(
-                                fontFamily: "Avenir",
-                                fontSize: 17,
+                        Flexible(
+                          flex: 3,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${userData["fullName"]}",
+                                style: TextStyle(
+                                  fontFamily: "Avenir",
+                                  fontSize: 17,
+                                ),
                               ),
-                            ),
-                            Text(
-                              "${data["createdAt"].toDate().toString().split(" ")[0]}",
-                              style: TextStyle(
-                                fontFamily: "Avenir",
-                                fontSize: 14,
+                              Text(
+                                "${data["createdAt"].toDate().toString().split(" ")[0]}",
+                                style: TextStyle(
+                                  fontFamily: "Avenir",
+                                  fontSize: 14,
+                                ),
+                                textAlign: TextAlign.left,
                               ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ],
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -98,28 +104,33 @@ class _celebrityHomePageDmRequestRowState extends State<celebrityHomePageDmReque
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Request For",
-                          style: TextStyle(
-                              fontFamily: "Avenir",
-                              fontSize: 14,
-                              color: Colors.black),
+                        Flexible(
+                          child: Text(
+                            "Request For",
+                            style: TextStyle(
+                                fontFamily: "Avenir",
+                                fontSize: 14,
+                                color: Colors.black),
+                          ),
                         ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.message,
-                              color: Colors.blue,
-                            ),
-                            SizedBox(width: 10,),
-                            Text(
-                              "DM",
-                              style: TextStyle(
-                                  fontFamily: "Avenir",
-                                  fontSize: 14,
-                                  color: Colors.black),
-                            ),
-                          ],
+                        Flexible(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Icon(
+                                Icons.message,
+                                color: Colors.blue,
+                              ),
+                              SizedBox(width: 10,),
+                              Text(
+                                "DM",
+                                style: TextStyle(
+                                    fontFamily: "Avenir",
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -129,19 +140,25 @@ class _celebrityHomePageDmRequestRowState extends State<celebrityHomePageDmReque
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Respond Before",
-                          style: TextStyle(
-                              fontFamily: "Avenir",
-                              fontSize: 14,
-                              color: Colors.black),
+                        Flexible(
+                          child: Text(
+                            "Respond Before",
+                            style: TextStyle(
+                                fontFamily: "Avenir",
+                                fontSize: 14,
+                                color: Colors.black),
+                          ),
                         ),
-                        Text(
-                          "${data["createdAt"].toDate().add(Duration(days: 7)).toString().split(" ")[0]}",
-                          style: TextStyle(
-                              fontFamily: "AvenirBold",
-                              fontSize: 14,
-                              color: Colors.black),
+                        Flexible(
+                          child: Text(
+                            "${data["createdAt"].toDate().add(Duration(days: 7)).toString().split(" ")[0]}",
+                            style: TextStyle(
+                                fontFamily: "AvenirBold",
+                                fontSize: 14,
+                                color: Colors.black
+                            ),
+                            textAlign: TextAlign.right,
+                          ),
                         )
                       ],
                     ),

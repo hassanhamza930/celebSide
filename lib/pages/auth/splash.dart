@@ -167,7 +167,7 @@ class _SplashState extends State<Splash> {
                     ),
                   ),
                   Text(
-                    "Personalized Celebrity Videos",
+                    "For Celebs",
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,

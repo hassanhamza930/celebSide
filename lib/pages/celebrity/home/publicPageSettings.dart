@@ -118,11 +118,15 @@ class _publicPageSettingsState extends State<publicPageSettings> {
                                     XFile image;
                                     showLoading(context: context);
 
-                                    await ImagePicker().pickImage(source: ImageSource.gallery,).then((value) {
-                                      setState(() {
-                                        image = value;
+
+                                      await ImagePicker().pickImage(source: ImageSource.gallery,).then((value) {
+                                        setState(() {
+                                          image = value;
+                                        });
                                       });
-                                    });
+
+
+
                                     FirebaseStorage.instance.ref("pictures/${FirebaseAuth.instance.currentUser.uid}").putFile(File(image.path))
                                         .then((TaskSnapshot taskSnapshot) {
                                       if (taskSnapshot.state == TaskState.success) {
@@ -145,7 +149,7 @@ class _publicPageSettingsState extends State<publicPageSettings> {
                                   }
                                   catch(e){
                                     Navigator.pop(context);
-                                    showErrorDialogue(context: context, message: e);
+                                    showErrorDialogue(context: context, message: "No File Selected");
                                   }
 
 
@@ -217,7 +221,7 @@ class _publicPageSettingsState extends State<publicPageSettings> {
                                   }
                                   catch(e){
                                     Navigator.pop(context);
-                                    showErrorDialogue(context: context, message: e);
+                                    showErrorDialogue(context: context, message: "No File Selected");
                                   }
 
 
@@ -303,7 +307,7 @@ class _publicPageSettingsState extends State<publicPageSettings> {
                                       focusedBorder: InputBorder.none,
                                       enabledBorder: InputBorder.none,
                                       contentPadding:
-                                      EdgeInsetsDirectional.only(start: 20),
+                                      EdgeInsetsDirectional.all(20),
                                     ),
                                     onChanged: (e)=>{},
                                     keyboardType: TextInputType.text,

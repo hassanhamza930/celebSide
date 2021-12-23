@@ -8,7 +8,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import "package:flutter/material.dart";
-import "package:flutter/cupertino.dart";import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
+import "package:flutter/cupertino.dart";
+import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -180,11 +181,11 @@ class _celebrityVideoFinalizeState extends State<celebrityVideoFinalize> {
                               Navigator.pop(context);
                               showMessage(context: context, message: 'Congratulations! You have successfully recieved ${amount} GHS');
 
-
                             }
                             else if (taskSnapshot.state == TaskState.running) {
                             }
                             else if (taskSnapshot.state == TaskState.error) {
+                              Navigator.pop(context);
                               showErrorDialogue(context: context, message: TaskState.error.toString());
                             }
                           });

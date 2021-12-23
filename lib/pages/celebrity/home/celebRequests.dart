@@ -16,7 +16,7 @@ var topBar = 0;
 
 
 
-var controller=PageController(keepPage: false);
+var reqController=PageController(keepPage: false);
 
 
 
@@ -32,14 +32,14 @@ class _celebRequestsState extends State<celebRequests> {
     currentTab = 0;
     subTab=0;
     topBar = 0;
-    controller=null;
+    reqController=null;
     super.dispose();
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    controller=PageController(keepPage: false,initialPage: 0);
+    reqController=PageController(keepPage: false,initialPage: 0);
     super.initState();
   }
 
@@ -180,7 +180,22 @@ class _celebRequestsState extends State<celebRequests> {
                                             );
                                           }
                                           else{
-                                            return Container();
+                                            return Container(
+                                              margin: EdgeInsets.only(left:5),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.orange,
+                                                  borderRadius: BorderRadius.all(
+                                                      Radius.circular(20))),
+                                              padding: EdgeInsets.only(
+                                                  top: 3,
+                                                  bottom: 3,
+                                                  left: 6,
+                                                  right: 6),
+                                              child: Text(
+                                                "0",
+                                                style: small(color: Colors.white),
+                                              ),
+                                            );
                                           }
                                         }
                                       ),
@@ -251,7 +266,10 @@ class _celebRequestsState extends State<celebRequests> {
                                               );
                                             }
                                             else{
-                                              return Text("");
+                                              return Text(
+                                                "0",
+                                                style: small(color: Colors.white),
+                                              );
                                             }
                                           }
                                         ),
@@ -287,7 +305,7 @@ class _celebRequestsState extends State<celebRequests> {
                                     TextButton(
                                       onPressed: (){
                                         setState(() {
-                                          controller.animateToPage(0, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+                                          reqController.animateToPage(0, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
                                         });
                                       },
                                       child: Container(
@@ -315,7 +333,7 @@ class _celebRequestsState extends State<celebRequests> {
                                     TextButton(
                                       onPressed: (){
                                         setState(() {
-                                          controller.animateToPage(1, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+                                          reqController.animateToPage(1, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
                                         });
                                       },
                                       child: Container(
@@ -343,7 +361,7 @@ class _celebRequestsState extends State<celebRequests> {
                                     TextButton(
                                       onPressed: (){
                                         setState(() {
-                                          controller.animateToPage(2, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+                                          reqController.animateToPage(2, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
                                         });
                                       },
                                       child: Container(
@@ -373,7 +391,7 @@ class _celebRequestsState extends State<celebRequests> {
                                 Container(
                                   height: 500,
                                   child: PageView(
-                                    controller: controller,
+                                    controller: reqController,
                                     onPageChanged: (page){
                                       setState(() {
                                         print(page);

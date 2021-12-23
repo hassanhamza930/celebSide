@@ -186,50 +186,50 @@ class _createOfferPageState extends State<createOfferPage> {
                     SizedBox(
                       height: 40,
                     ),
-                    Container(
-                      width: width * 0.8,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,
-                              CupertinoPageRoute(builder: (context) {
-                            return customizeFanClub();
-                          }));
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(20),
-                              ),
-                              color: Colors.white),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.message,
-                                color: Colors.blue,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text("Fan Club Offers",
-                                  textAlign: TextAlign.center,
-                                  style: small(color: Colors.orange)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 10, right: 10),
-                      child: Text(
-                        "Edit and customise your offers for your Fan club members",
-                        style: small(color: Colors.white, size: 14),
-                      ),
-                    ),
+                    // Container(
+                    //   width: width * 0.8,
+                    //   child: GestureDetector(
+                    //     onTap: () {
+                    //       Navigator.push(context,
+                    //           CupertinoPageRoute(builder: (context) {
+                    //         return customizeFanClub();
+                    //       }));
+                    //     },
+                    //     child: Container(
+                    //       padding: EdgeInsets.all(10),
+                    //       decoration: BoxDecoration(
+                    //           borderRadius: BorderRadius.all(
+                    //             Radius.circular(20),
+                    //           ),
+                    //           color: Colors.white),
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: [
+                    //           Icon(
+                    //             Icons.message,
+                    //             color: Colors.blue,
+                    //           ),
+                    //           SizedBox(
+                    //             width: 10,
+                    //           ),
+                    //           Text("Fan Club Offers",
+                    //               textAlign: TextAlign.center,
+                    //               style: small(color: Colors.orange)),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+                    // Container(
+                    //   padding: EdgeInsets.only(left: 10, right: 10),
+                    //   child: Text(
+                    //     "Edit and customise your offers for your Fan club members",
+                    //     style: small(color: Colors.white, size: 14),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

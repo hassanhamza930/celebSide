@@ -16,7 +16,7 @@ List<CameraDescription> cameras;
 var currentCam=0;
 var isPressed=false;
 var finalPath;
-
+var initialized=false;
 
 
 
@@ -36,9 +36,13 @@ class _celebrityVideoRecordState extends State<celebrityVideoRecord> {
   oneTime()async{
     cameras = await availableCameras();
     controller = CameraController(cameras[currentCam], ResolutionPreset.high);
-    await controller.initialize();
-    setState(() {
+    await controller.initialize().then((value){
+      setState(() {
+        initialized=true;
+      });
     });
+
+    return 0;
   }
 
 
@@ -68,16 +72,18 @@ class _celebrityVideoRecordState extends State<celebrityVideoRecord> {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
+          initialized==true?
           AspectRatio(
-            aspectRatio: controller.value.aspectRatio,
+          aspectRatio: controller.value.aspectRatio,
             child: Container(
                 child: Center(
                     child: CameraPreview(
-                    controller,
+                      controller,
                     )
                 )
             ),
-          ),
+          ):
+          Container(),
           Center(
             child: Container(
               padding: EdgeInsets.only(bottom: 20),

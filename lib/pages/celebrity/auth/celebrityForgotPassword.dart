@@ -1,8 +1,14 @@
 import 'package:celebside/pages/auth/createNewPass.dart';
+import 'package:celebside/pages/util/components.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'celebrityCreateNewPass.dart';
 import '../home/celebrityHome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+
+
+var email=TextEditingController(text: "");
+
 
 class celebrityForgotPassword extends StatefulWidget {
   @override
@@ -69,6 +75,7 @@ class _celebrityForgotPasswordState extends State<celebrityForgotPassword> {
                     ),
                     child: Center(
                       child: TextField(
+                        controller: email,
                         style: TextStyle(
                             color:Colors.white,
                             fontFamily:'Avenir'
@@ -91,10 +98,20 @@ class _celebrityForgotPasswordState extends State<celebrityForgotPassword> {
                 ),
                 SizedBox(height: 50,),
                 GestureDetector(
-                  onTap: (){
-                    Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context){
-                      return celebrityHome();
-                    }));
+                  onTap: ()async{
+                    // Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context){
+                    //   return celebrityHome();
+                    // }));
+                    showLoading(context: context);
+                    try{
+                      await FirebaseAuth.instance.sendPasswordResetEmail(email: email.text);
+                      Navigator.pop(context);
+                      showMessage(context: context, message: "Password reset email sent.");
+                    }
+                    catch(e){
+                      Navigator.pop(context);
+                      showMessage(context: context, message: "${e.message}");
+                    }
                   },
                   child: Center(
                     child: Center(
@@ -107,8 +124,7 @@ class _celebrityForgotPasswordState extends State<celebrityForgotPassword> {
                                 Colors.orange,
                               ],
                             ),
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(20))),
+                            borderRadius: BorderRadius.all(Radius.circular(20))),
                         width: MediaQuery.of(context).size.width * 0.9,
                         //height: 50,
                         child: Center(
@@ -127,33 +143,33 @@ class _celebrityForgotPasswordState extends State<celebrityForgotPassword> {
                   ),
                 ),
                 SizedBox(height: 50,),
-                GestureDetector(
-                  onTap: (){
-                    Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context){
-                      return celebrityCreateNewPass();
-                    }));
-                  },
-                  child: Center(
-                    child: Center(
-                      child: Container(
-                        padding: EdgeInsets.only(top: 10, bottom: 10),
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        //height: 50,
-                        child: Center(
-                          child: Text(
-                            "Testing Create New Pass",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: "Avenir",
-                              fontSize: 17,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // GestureDetector(
+                //   onTap: (){
+                //     Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context){
+                //       return celebrityCreateNewPass();
+                //     }));
+                //   },
+                //   child: Center(
+                //     child: Center(
+                //       child: Container(
+                //         padding: EdgeInsets.only(top: 10, bottom: 10),
+                //         width: MediaQuery.of(context).size.width * 0.9,
+                //         //height: 50,
+                //         child: Center(
+                //           child: Text(
+                //             "Testing Create New Pass",
+                //             textAlign: TextAlign.center,
+                //             style: TextStyle(
+                //               fontFamily: "Avenir",
+                //               fontSize: 17,
+                //               color: Colors.white,
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
