@@ -325,7 +325,7 @@ setRequestAsComplete({@required String userId, @required String type, @required 
 
   if(status=="pending"){
 
-    await addToWallet(amount: ((double.parse(messagePrice))) * 0.7, id: FirebaseAuth.instance.currentUser.uid, type: "celebrities");
+    await addToWallet(amount: ((double.parse(messagePrice))), id: FirebaseAuth.instance.currentUser.uid, type: "celebrities");
 
     await FirebaseFirestore.instance.collection("requests").doc(docId).set({
       "status":"complete",

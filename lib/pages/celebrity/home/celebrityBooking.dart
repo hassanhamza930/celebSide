@@ -1,4 +1,5 @@
 import 'package:celebside/pages/celebrity/home/celebHomeTabs/all.dart';
+import 'package:celebside/services/calculateFinances.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -460,7 +461,7 @@ class _celebrityBookingsState extends State<celebrityBookings>
 
                             
                             QuerySnapshot doc=snapshot.data;
-                            doc.docs.forEach((element) { 
+                            doc.docs. forEach((element) {
                             Map data=element.data();
                               DateTime transactionDate=data["createdAt"].toDate();
 
@@ -491,14 +492,37 @@ class _celebrityBookingsState extends State<celebrityBookings>
                                           fontFamily: "Avenir",
                                         ),
                                       ),
-                                      Text(
-                                        "${totalEarnings} GHS",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 26,
-                                          color: Colors.white,
-                                          fontFamily: "Avenir",
-                                        ),
+                                      FutureBuilder(
+                                        future: calculateTotalEarnings(celebId: FirebaseAuth.instance.currentUser.uid),
+                                        builder: (context, snapshot) {
+                                          if(snapshot.hasData){
+                                            var data = snapshot.data;
+                                            return Text(
+                                              "¢${data}",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 26,
+                                                color: Colors.white,
+                                                fontFamily: "Avenir",
+                                              ),
+                                            );
+                                          }
+                                          if(snapshot.hasError){
+                                            print(snapshot.error);
+                                            return Container();
+                                          }
+                                          else{
+                                            return Text(
+                                              "¢0",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 26,
+                                                color: Colors.white,
+                                                fontFamily: "Avenir",
+                                              ),
+                                            );
+                                          }
+                                        }
                                       ),
                                       Container(
                                         width: width * 0.8,
@@ -577,14 +601,32 @@ class _celebrityBookingsState extends State<celebrityBookings>
                                           Center(
                                             child: Column(
                                               children: [
-                                                Text(
-                                                  "${monthlyEarnings}",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 17,
-                                                    color: Colors.white,
-                                                    fontFamily: "AvenirBold",
-                                                  ),
+                                                FutureBuilder(
+                                                  future: calculateMonthlyEarnings(celebId: FirebaseAuth.instance.currentUser.uid),
+                                                  builder: (context, snapshot) {
+                                                    if(snapshot.hasData){
+                                                      return Text(
+                                                        "¢${snapshot.data}",
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontSize: 17,
+                                                          color: Colors.white,
+                                                          fontFamily: "AvenirBold",
+                                                        ),
+                                                      );
+                                                    }
+                                                    else{
+                                                      return Text(
+                                                        "¢0",
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontSize: 17,
+                                                          color: Colors.white,
+                                                          fontFamily: "AvenirBold",
+                                                        ),
+                                                      );
+                                                    }
+                                                  }
                                                 ),
                                                 Text(
                                                   "Monthly Earnings",
@@ -601,14 +643,32 @@ class _celebrityBookingsState extends State<celebrityBookings>
                                           Center(
                                             child: Column(
                                               children: [
-                                                Text(
-                                                  "${lastMonthEarnings}",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontSize: 17,
-                                                    color: Colors.white,
-                                                    fontFamily: "AvenirBold",
-                                                  ),
+                                                FutureBuilder(
+                                                  future: calculateLastMonthEarnings(celebId: FirebaseAuth.instance.currentUser.uid),
+                                                  builder: (context, snapshot) {
+                                                    if(snapshot.hasData){
+                                                      return Text(
+                                                        "¢${snapshot.data}",
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontSize: 17,
+                                                          color: Colors.white,
+                                                          fontFamily: "AvenirBold",
+                                                        ),
+                                                      );
+                                                    }
+                                                    else{
+                                                      return Text(
+                                                        "¢0",
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontSize: 17,
+                                                          color: Colors.white,
+                                                          fontFamily: "AvenirBold",
+                                                        ),
+                                                      );
+                                                    }
+                                                  }
                                                 ),
                                                 Text(
                                                   "Last Month",
@@ -646,7 +706,7 @@ class _celebrityBookingsState extends State<celebrityBookings>
                                         ),
                                       ),
                                       Text(
-                                        "\$0",
+                                        "¢0",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 26,
@@ -732,7 +792,7 @@ class _celebrityBookingsState extends State<celebrityBookings>
                                             child: Column(
                                               children: [
                                                 Text(
-                                                  "\$0",
+                                                  "¢0",
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     fontSize: 17,
@@ -756,7 +816,7 @@ class _celebrityBookingsState extends State<celebrityBookings>
                                             child: Column(
                                               children: [
                                                 Text(
-                                                  "\$0",
+                                                  "¢0",
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     fontSize: 17,

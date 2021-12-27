@@ -10,7 +10,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:path_provider/path_provider.dart';
@@ -341,7 +340,6 @@ class _completedRowState extends State<completedRow> {
                                                               showErrorDialogue(context: context, message: e);
                                                             }
 
-                                                            final FlutterFFmpeg _flutterFFmpeg = new FlutterFFmpeg();
 
 
                                                           // String appDocumentsPath = '/storage/emulated/0/Documents';
@@ -353,7 +351,6 @@ class _completedRowState extends State<completedRow> {
 
 
 
-                                                            await _flutterFFmpeg.execute('-i ${downloadToFile.path} -i ${f.path} -vcodec mpeg4 -pix_fmt yuva420p -acodec aac -filter_complex overlay=(W-w)/2:(H-h)/1.2 ${filePath}').then((rc)=>print(rc));
                                                             print("filePath is");
                                                             print(filePath);
                                                           Navigator.pop(context);

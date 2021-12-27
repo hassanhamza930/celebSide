@@ -332,265 +332,32 @@ class _celebrityChatState extends State<celebrityChat> {
                             ),
                             GestureDetector(
                               onTap: () async {
-                                if (widget.isCelebrity == false) {
+                                showLoading(context: context);
 
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        var width = MediaQuery.of(context).size.width;
-                                        var height = MediaQuery.of(context).size.height;
+                                var chatId = findOutChatId(id1: widget.celebId, id2: FirebaseAuth.instance.currentUser.uid.toString());
+                                var doc = await FirebaseFirestore.instance.collection("chats").doc(chatId).get();
+                                var chatData = doc.data();
+                                List messages = chatData["messages"];
 
-                                        return Scaffold(
-                                          backgroundColor: Colors.transparent,
-                                          body: Center(
-                                            child: Container(
-                                              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
-                                              padding: EdgeInsets.all(20),
-                                              height: height * 0.45,
-                                              width: width * 0.7,
-                                              child: Center(
-                                                child: ListView(
-                                                  shrinkWrap: true,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          "Introducing",
-                                                          style: small(color: Colors.orange),
-                                                        ),
-                                                        FloatingActionButton(
-                                                          onPressed: () {
-                                                            Navigator.pop(context);
-                                                          },
-                                                          child: Icon(
-                                                            Icons.close,
-                                                            color: Colors.white,
-                                                            size: 20,
-                                                          ),
-                                                          mini: true,
-                                                          backgroundColor: Colors.blueAccent,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          "Pay DM",
-                                                          style: medium(color: Color.fromRGBO(24, 48, 93, 1)),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Flexible(
-                                                          child: Text(
-                                                              "There’s no guarantee you will get a response. You will receive a refund if you don’t get a response.",
-                                                              style: small(color: Color.fromRGBO(24, 48, 93, 1)),
-                                                              textAlign: TextAlign.left),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    GestureDetector(
-                                                        onTap: () async {
-                                                          if (messageText.text.toString().trim() == "") {
-                                                            Navigator.pop(context);
-                                                            showErrorDialogue(context: context, message: "Kindly enter a message to send");
-                                                          } else {
-                                                            //This will only run when you are a USER
+                                await messages.add({
+                                  "text": messageText.text,
+                                  "createdAt": DateTime.now(),
+                                  "from": FirebaseAuth.instance.currentUser.uid.toString(),
+                                  "to": widget.celebId.toString(),
+                                });
 
-                                                            //showLoading(context: context);
+                                await FirebaseFirestore.instance
+                                    .collection("chats")
+                                    .doc(chatId)
+                                    .set({"messages": messages}, SetOptions(merge: true));
 
-                                                            var checkRequestResponse = await checkRequest(context: context, celebrityId: widget.celebId, userId: FirebaseAuth.instance.currentUser.uid.toString(), type: "dm");
+                                DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection("users").doc(widget.celebId).get();
+                                DocumentSnapshot currentUserDoc = await FirebaseFirestore.instance.collection("celebrities").doc(FirebaseAuth.instance.currentUser.uid).get();
+                                Map currentUserData = currentUserDoc.data();
+                                Map data = userDoc.data();
 
-                                                            if (checkRequestResponse != "error") {
-                                                              try {
-                                                                Navigator.pop(context);
-
-                                                                showDialog(
-                                                                    context: context,
-                                                                    builder: (context) {
-
-                                                                      return Scaffold(
-                                                                        backgroundColor: Colors.transparent,
-                                                                        body: Center(
-                                                                          child: Container(
-                                                                            decoration: BoxDecoration(
-                                                                                color: Colors.black.withOpacity(0.7),
-                                                                                borderRadius: BorderRadius.all(
-                                                                                    Radius.circular(20)
-                                                                                )
-                                                                            ),
-                                                                            height: height * 0.5,
-                                                                            width: width * 0.7,
-                                                                            child: Center(
-                                                                              child: ListView(
-                                                                                shrinkWrap: true,
-                                                                                children: [
-                                                                                  Center(
-                                                                                    child: Container(
-                                                                                      padding: EdgeInsets.all(3),
-                                                                                      width: width * 0.6,
-                                                                                      decoration: BoxDecoration(
-                                                                                          color: Colors.white.withOpacity(0.3),
-                                                                                          borderRadius: BorderRadius.all(Radius.circular(18.0))),
-                                                                                      child: Center(
-                                                                                        child: TextField(
-                                                                                          controller: promo,
-                                                                                          style: small(color: Colors.white),
-                                                                                          decoration: InputDecoration(
-                                                                                            labelText: "Promo Code",
-                                                                                            labelStyle: small(color: Colors.white),
-                                                                                            focusedBorder: InputBorder.none,
-                                                                                            enabledBorder: InputBorder.none,
-                                                                                            contentPadding: EdgeInsetsDirectional.only(start: 20),
-                                                                                          ),
-                                                                                          onChanged: (e) => {},
-                                                                                          keyboardType: TextInputType.text,
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
-                                                                                  SizedBox(height: 20,),
-                                                                                  Center(
-                                                                                    child: authButton(text: "Continue", color: Colors.white, bg: Colors.orange, onPress: ()async{
-
-                                                                                      showLoading(context: context);
-
-                                                                                      var promoResponse= await checkPromoCode(code: promo.text, type: "dm", celebrity: widget.celebId );
-
-                                                                                      if(promoResponse["message"]=="ok"){
-
-                                                                                        var discount= double.parse(promoResponse["promo"]["promoDiscount"]);
-                                                                                        var discountPercentage=(1- (discount/100));
-                                                                                        var amount=double.parse(data["dm"]["price"])*100;
-                                                                                        amount=amount*discountPercentage;
-
-                                                                                        var discountedAmount=double.parse(data["dm"]["price"])*(double.parse(promoResponse["promo"]["promoDiscount"])/100);
-
-
-
-                                                                                        print('ifed');
-
-                                                                                        var response=await http.get(Uri.parse("https://us-central1-funnel-887b0.cloudfunctions.net/getPaymentPage"),headers: {"name":data["fullName"],"amount": "$amount"});
-                                                                                        var responseData=jsonDecode(response.body);
-
-                                                                                        var slug=responseData["data"]["slug"];
-
-                                                                                        Navigator.pop(context);
-                                                                                        Navigator.pop(context);
-                                                                                        getPayment(message:messageText.text ,discount:discountedAmount ,context: context, amount: amount.toInt() , celebrity: widget.celebId, user: FirebaseAuth.instance.currentUser.uid, slug: slug);
-
-                                                                                        print("showed");
-                                                                                      }
-                                                                                      else{
-                                                                                        Navigator.pop(context);
-                                                                                        showErrorDialogue(context: context, message: "Your promo code is invalid or expired");
-                                                                                      }
-
-                                                                                    }, context: context,thin: true),
-                                                                                  ),
-                                                                                  SizedBox(height: 50,),
-                                                                                  GestureDetector(
-                                                                                    onTap: ()async{
-                                                                                      showLoading(context: context);
-
-                                                                                      var response=await http.get(Uri.parse("https://us-central1-funnel-887b0.cloudfunctions.net/getPaymentPage"),headers: {"name":data["fullName"],"amount": "${double.parse(data["dm"]["price"])*100}"});
-                                                                                      var responseData=jsonDecode(response.body);
-
-                                                                                      var slug=responseData["data"]["slug"];
-
-                                                                                      Navigator.pop(context);
-                                                                                      Navigator.pop(context);
-                                                                                      getPayment(message:messageText.text ,context: context, amount: int.parse(data["dm"]["price"])*100, celebrity: widget.celebId, user: FirebaseAuth.instance.currentUser.uid, slug: slug);
-
-                                                                                      print("showed");
-                                                                                    },
-                                                                                    child: Center(
-                                                                                        child: Text("Have no promo code?",style: small(color: Colors.white,size: 14),)
-                                                                                    ),
-                                                                                  )
-                                                                                ],
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      );
-                                                                    });
-
-
-
-                                                              } catch (e) {
-                                                                Navigator.pop(context);
-                                                                Navigator.pop(context);
-                                                                showErrorDialogue(context: context, message: e.toString());
-                                                              }
-                                                            } else {
-                                                              Navigator.pop(context);
-                                                              showErrorDialogue(
-                                                                  context: context,
-                                                                  message: "You already have a pending DM request for this celebrity.");
-                                                            }
-                                                          }
-                                                        },
-                                                        child: Center(
-                                                            child: Container(
-                                                              decoration: BoxDecoration(
-                                                                  color: Colors.orange,
-                                                                  borderRadius: BorderRadius.all(
-                                                                    Radius.circular(20),
-                                                                  )),
-                                                              padding: EdgeInsets.all(20),
-                                                              margin: EdgeInsets.all(10),
-                                                              child: Center(
-                                                                child: Text(
-                                                                  "Send DM ¢${data["dm"]["price"]}",
-                                                                  style: mediumBold(color: Color.fromRGBO(24, 48, 93, 1), size: 26),
-                                                                  textAlign: TextAlign.center,
-                                                                ),
-                                                              ),
-                                                            ))),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      });
-                                }
-                                else {
-                                  showLoading(context: context);
-
-                                  var chatId = findOutChatId(id1: widget.celebId, id2: FirebaseAuth.instance.currentUser.uid.toString());
-                                  var doc = await FirebaseFirestore.instance.collection("chats").doc(chatId).get();
-                                  var chatData = doc.data();
-                                  List messages = chatData["messages"];
-
-                                  await messages.add({
-                                    "text": messageText.text,
-                                    "createdAt": DateTime.now(),
-                                    "from": FirebaseAuth.instance.currentUser.uid.toString(),
-                                    "to": widget.celebId.toString(),
-                                  });
-
-                                  await FirebaseFirestore.instance
-                                      .collection("chats")
-                                      .doc(chatId)
-                                      .set({"messages": messages}, SetOptions(merge: true));
-
-                                  DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection("users").doc(widget.celebId).get();
-                                  DocumentSnapshot currentUserDoc = await FirebaseFirestore.instance.collection("celebrities").doc(FirebaseAuth.instance.currentUser.uid).get();
-                                  Map currentUserData = currentUserDoc.data();
-                                  Map data = userDoc.data();
-
-                                  await setRequestAsComplete(type: "dm", userId: widget.celebId,context: context);
-                                  messageText.clear();
-                                }
+                                await setRequestAsComplete(type: "dm", userId: widget.celebId,context: context);
+                                messageText.clear();
                               },
                               child: Icon(
                                 Icons.send,

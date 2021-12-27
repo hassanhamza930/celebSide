@@ -72,7 +72,7 @@ class _celebrityVideoRecordState extends State<celebrityVideoRecord> {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          initialized==true?
+          initialized==true && controller!=null?
           AspectRatio(
           aspectRatio: controller.value.aspectRatio,
             child: Container(
@@ -114,7 +114,7 @@ class _celebrityVideoRecordState extends State<celebrityVideoRecord> {
                           await controller.initialize();
 
 
-                          final Directory appDirectory = await getApplicationDocumentsDirectory();
+                          final Directory appDirectory = await getExternalStorageDirectory();
                           final String videoDirectory = '${appDirectory.path}/Videos';
                           await Directory(videoDirectory).create(recursive: true);
                           final String currentTime = DateTime.now().millisecondsSinceEpoch.toString();

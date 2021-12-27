@@ -55,7 +55,6 @@ dependencies:
   path: ^1.8.0
   path_provider:
   chewie:
-  flutter_ffmpeg: ^0.2.10
   video_player: ^2.2.3  #  video_player: ^2.2.6
   google_maps_flutter: ^2.0.9 #  google_maps_flutter: ^2.0.11
   firebase_messaging: ^11.1.0
