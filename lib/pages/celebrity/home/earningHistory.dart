@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:celebside/pages/celebrity/home/payouts/payouts.dart';
 import 'package:celebside/pages/home/profile/transactions.dart';
-import 'package:celebside/services/calculateFinances.dart';
 import 'package:celebside/services/fetchUsersData.dart';
 import 'package:celebside/util/styles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -103,7 +102,7 @@ class _earningHistoryState extends State<earningHistory> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    AutoSizeText("¢${data["wallet"].floor()}",maxLines:1,style: mediumBold(color: Colors.white,size: 35),),
+                                    AutoSizeText("¢${data["wallet"].floor()}0",maxLines:1,style: mediumBold(color: Colors.white,size: 35),),
                                     GestureDetector(
                                       onTap: (){
                                         Navigator.push(context, CupertinoPageRoute(builder: (context){
@@ -180,8 +179,6 @@ class _earningHistoryState extends State<earningHistory> {
                             builder: (context, snapshot) {
                               if(snapshot.hasData){
 
-
-
                                 List docs=snapshot.data.docs;
                                 List docsData=[];
                                 docs.forEach((element) {
@@ -254,17 +251,7 @@ class _earningHistoryState extends State<earningHistory> {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text("Total Billed",style: small(color: Colors.white),),
-                                            FutureBuilder(
-                                              future: calculateTotalBilled(celebId: FirebaseAuth.instance.currentUser.uid),
-                                              builder: (context, snapshot) {
-                                                if(snapshot.hasData){
-                                                  return Text("¢${snapshot.data}",style: small(color: Colors.orange),);
-                                                }
-                                                else{
-                                                  return Text("¢0",style: small(color: Colors.orange),);
-                                                }
-                                              }
-                                            ),
+                                            Text("¢${data["wallet"]}",style: small(color: Colors.orange),),
                                           ],
                                         ),
 
@@ -272,17 +259,7 @@ class _earningHistoryState extends State<earningHistory> {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text("Fees Charged",style: small(color: Colors.white),),
-                                            FutureBuilder(
-                                                future: calculateFeesCharged(celebId: FirebaseAuth.instance.currentUser.uid),
-                                                builder: (context, snapshot) {
-                                                  if(snapshot.hasData){
-                                                    return Text("¢${snapshot.data}",style: small(color: Colors.orange),);
-                                                  }
-                                                  else{
-                                                    return Text("¢0",style: small(color: Colors.orange),);
-                                                  }
-                                                }
-                                            ),
+                                            Text("¢${(total*0.3).floor()}",style: small(color: Colors.orange),),
                                           ],
                                         ),
 
@@ -290,17 +267,7 @@ class _earningHistoryState extends State<earningHistory> {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text("Net After Fees",style: small(color: Colors.white),),
-                                            FutureBuilder(
-                                                future: calculateNetAfterFees(celebId: FirebaseAuth.instance.currentUser.uid),
-                                                builder: (context, snapshot) {
-                                                  if(snapshot.hasData){
-                                                    return Text("¢${snapshot.data}",style: small(color: Colors.orange),);
-                                                  }
-                                                  else{
-                                                    return Text("¢0",style: small(color: Colors.orange),);
-                                                  }
-                                                }
-                                            ),
+                                            Text("¢${(total*0.7).floor()}",style: small(color: Colors.orange),),
                                           ],
                                         ),
 
@@ -308,17 +275,8 @@ class _earningHistoryState extends State<earningHistory> {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text("Discount",style: small(color: Colors.white),),
-                                            FutureBuilder(
-                                                future: calculateDiscount(celebId: FirebaseAuth.instance.currentUser.uid),
-                                                builder: (context, snapshot) {
-                                                  if(snapshot.hasData){
-                                                    return Text("¢${snapshot.data}",style: small(color: Colors.orange),);
-                                                  }
-                                                  else{
-                                                    return Text("¢0",style: small(color: Colors.orange),);
-                                                  }
-                                                }
-                                            ),                                          ],
+                                            Text("¢${totalDiscount}",style: small(color: Colors.orange),),
+                                          ],
                                         ),
 
 
@@ -334,17 +292,7 @@ class _earningHistoryState extends State<earningHistory> {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text("Recieved Earnings",style: small(color: Colors.white),),
-                                            FutureBuilder(
-                                                future: calculateRecievedEarnings(celebId: FirebaseAuth.instance.currentUser.uid),
-                                                builder: (context, snapshot) {
-                                                  if(snapshot.hasData){
-                                                    return Text("¢${snapshot.data}",style: small(color: Colors.orange),);
-                                                  }
-                                                  else{
-                                                    return Text("¢0",style: small(color: Colors.orange),);
-                                                  }
-                                                }
-                                            ),
+                                            Text("¢${recieved}",style: small(color: Colors.orange),),
                                           ],
                                         ),
 
@@ -359,7 +307,7 @@ class _earningHistoryState extends State<earningHistory> {
                             }
                           ):
                           StreamBuilder(
-                              stream: FirebaseFirestore.instance.collection("transactions").where("from",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("to",isEqualTo: "self").snapshots(),
+                              stream: FirebaseFirestore.instance.collection("transactions").where("from",isEqualTo: FirebaseAuth.instance.currentUser.uid).snapshots(),
                               builder: (context, snapshot) {
 
                                 if(snapshot.hasData){

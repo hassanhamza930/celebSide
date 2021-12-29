@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:celebside/services/addNotifications.dart';
-import 'package:celebside/services/addToWallet.dart';
 import 'package:celebside/services/addTransaction.dart';
 import 'package:celebside/services/fetchUsersData.dart';
 import 'package:celebside/util/components.dart';
@@ -10,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
+import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -93,23 +93,24 @@ class _celebrityVideoFinalizeState extends State<celebrityVideoFinalize> {
                       ),
                       onPressed: ()async {
 
-                        // showLoading(context: context);
-                        // final FlutterFFmpeg _flutterFFmpeg = new FlutterFFmpeg();
-                        //
-                        //
-                        // String appDocumentsPath = '/storage/emulated/0/Documents';
-                        // String filePath = '$appDocumentsPath/${DateTime.now().millisecond}.mp4';
-                        // File f = await getImageFileFromAssets('logoSmall.png');
-                        //
-                        //
-                        // await _flutterFFmpeg.execute('-i ${widget.finalPath} -i ${f.path} -vcodec mpeg4 -pix_fmt yuva420p -acodec aac -filter_complex overlay=(W-w)/2:(H-h)/1.2 $filePath').then((rc)=>print(rc));
-                        //
-                        // print("filePath is");
-                        // print(filePath);
+                        showLoading(context: context);
+                        final FlutterFFmpeg _flutterFFmpeg = new FlutterFFmpeg();
 
-                        // Navigator.pop(context);
-                        showMessage(context: context, message: "Saved in Gallery");
 
+                        String appDocumentsPath = '/storage/emulated/0/Documents';
+                        String filePath = '$appDocumentsPath/${DateTime.now().millisecond}.mp4';
+                        File f = await getImageFileFromAssets('logoSmall.png');
+
+
+
+
+
+
+                        await _flutterFFmpeg.execute('-i ${widget.finalPath} -i ${f.path} -vcodec mpeg4 -pix_fmt yuva420p -acodec aac -filter_complex overlay=(W-w)/2:(H-h)/1.2 $filePath').then((rc)=>print(rc));
+
+                        print("filePath is");
+                        print(filePath);
+                        Navigator.pop(context);
 
 
 
@@ -168,7 +169,6 @@ class _celebrityVideoFinalizeState extends State<celebrityVideoFinalize> {
 
 
                                    await addTransaction(flow: "in", message: "Video Request", to: FirebaseAuth.instance.currentUser.uid, from: user, amount: amount);
-                                   await addToWallet(amount: amount*0.7, id: FirebaseAuth.instance.currentUser.uid, type: "celebrities");
 
                                   });
 
@@ -179,7 +179,7 @@ class _celebrityVideoFinalizeState extends State<celebrityVideoFinalize> {
                               Navigator.pop(context);
                               Navigator.pop(context);
                               Navigator.pop(context);
-                              showMessage(context: context, message: 'Congratulations! You have successfully recieved ${amount*0.7} GHS');
+                              showMessage(context: context, message: 'Congratulations! You have successfully recieved ${amount} GHS');
 
                             }
                             else if (taskSnapshot.state == TaskState.running) {

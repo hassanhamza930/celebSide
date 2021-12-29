@@ -103,7 +103,7 @@ payout({@required String target,@required int amount, @required String number, @
         if(data["status"]==true){
 
 
-          await addTransaction(flow: "out", message: "Withdraw", to: "self", from: FirebaseAuth.instance.currentUser.uid, amount: amount.toDouble());
+          await addTransaction(flow: "out", message: "Withdraw", to: FirebaseAuth.instance.currentUser.uid, from: FirebaseAuth.instance.currentUser.uid, amount: amount.toDouble());
 
           wallet=wallet-amount;
           await FirebaseFirestore.instance.collection("celebrities").doc(FirebaseAuth.instance.currentUser.uid).set(

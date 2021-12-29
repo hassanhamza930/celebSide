@@ -1,6 +1,7 @@
 import 'package:celebside/pages/home/celebrityProfile/celebrityProfilePage.dart';
 import 'package:celebside/pages/home/celebrityProfile/payment/orderDetails.dart';
 import 'package:celebside/pages/home/requests/booking.dart';
+import 'package:celebside/pages/home/requests/completed.dart';
 import 'package:celebside/pages/home/requests/pending.dart';
 import 'package:celebside/pages/home/videoPlayer/videoPlayer.dart';
 import 'package:celebside/util/components.dart';
@@ -57,6 +58,7 @@ class _requestsState extends State<requests> {
 
                   var pages=[
                     pending(),
+                    completed(),
                     booking()
                   ];
 

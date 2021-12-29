@@ -153,15 +153,7 @@ class _customizeDmsState extends State<customizeDms> {
                                if(priceController.text!="0" && responseTimeController.text!="0" ){
                                  try{
                                    showLoading(context: context);
-                                   await FirebaseFirestore.instance.collection("celebrities").doc(FirebaseAuth.instance.currentUser.uid.toString()).set(
-                                       {
-                                         "dm": {
-                                            "price": priceController.text,
-                                            "responseTime":responseTimeController.text,
-                                            "charity":charity,
-                                            "hidden":hidden
-                                          }
-                                       },SetOptions(merge:true));
+                                   await FirebaseFirestore.instance.collection("celebrities").doc(FirebaseAuth.instance.currentUser.uid.toString()).set({"dm":{"price":priceController.text,"responseTime":responseTimeController.text,"charity":charity,"hidden":hidden}},SetOptions(merge:true));
                                    Navigator.pop(context);
                                    Navigator.pop(context);
                                    Navigator.pop(context);

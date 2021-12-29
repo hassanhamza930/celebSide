@@ -316,9 +316,6 @@ class _celebrityEditProfileState extends State<celebrityEditProfile> {
 
                               try{
 
-                                var credential=EmailAuthProvider.credential(email: email.text, password: password.text);
-                                await FirebaseAuth.instance.currentUser.reauthenticateWithCredential(credential);
-
                                 await FirebaseAuth.instance.currentUser.updateEmail(email.text);
                                 await FirebaseAuth.instance.currentUser.updateDisplayName(name.text);
                                 await FirebaseAuth.instance.currentUser.updatePassword(password.text);

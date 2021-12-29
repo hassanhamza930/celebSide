@@ -99,7 +99,7 @@ class _payoutsState extends State<payouts> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                                "Total Balance",
+                                                "Total Earnings",
                                                 style: TextStyle(
                                                     color: Color.fromRGBO(44,255,244,1),
                                                     fontSize: 20,
@@ -263,8 +263,6 @@ class _payoutsState extends State<payouts> {
                               var res= await payout(target: "celebrity", amount:  int.parse(amount.text), number: mobileNumber.text , id: FirebaseAuth.instance.currentUser.uid, provider: provider);
                               Navigator.pop(context);
                               showMessage(context: context, message: res["message"]);
-                              amount.clear();
-                              mobileNumber.clear();
                             }
                             else{
                               Navigator.pop(context);
