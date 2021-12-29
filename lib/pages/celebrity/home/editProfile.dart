@@ -412,7 +412,14 @@ class _celebrityEditProfileState extends State<celebrityEditProfile> {
                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 GestureDetector(
-                                                  onTap:(){
+                                                  onTap:()async{
+                                                    var credential=EmailAuthProvider.credential(email: email.text, password: password.text);
+                                                    await FirebaseAuth.instance.currentUser.reauthenticateWithCredential(credential);
+
+                                                    await FirebaseAuth.instance.currentUser.delete();
+                                                   // await FirebaseFirestore.instance.collection("celebrities").doc(FirebaseAuth.instance.currentUser.uid).delete();
+
+
                                                     Navigator.pushReplacement(
                                                         context,
                                                         CupertinoPageRoute(builder: (context){
