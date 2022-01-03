@@ -741,7 +741,7 @@ class _bookingDetailsState extends State<bookingDetails> {
 
                                                                                 await addToWallet(amount: amount * 0.7, id: widget.celebrity, type: "celebrities");
 
-                                                                                await addTransaction(discount: discountedAmount,flow: "out", message: "Event Booking", to: widget.celebrity, from: FirebaseAuth.instance.currentUser.uid, amount: ( amount));
+                                                                                await addTransaction(message: "Event Booking", to: widget.celebrity, from: FirebaseAuth.instance.currentUser.uid, amount: ( amount));
 
                                                                                 await addNotifications(type:"eventBooking",target: "celebrity", message: "${userData["fullName"]} has accepted your offer, You have recieved ${amount*0.7} GHS for an event booking", from: FirebaseAuth.instance.currentUser.uid , to: widget.celebrity);
 
@@ -824,7 +824,7 @@ class _bookingDetailsState extends State<bookingDetails> {
 
                                                                               await addToWallet(amount: double.parse( quotation.text) * 0.7, id: widget.celebrity, type: "celebrities");
 
-                                                                              await addTransaction(flow: "out", message: "Event Booking", to: widget.celebrity, from: FirebaseAuth.instance.currentUser.uid, amount: ( double.parse(quotation.text)));
+                                                                              await addTransaction( message: "Event Booking", to: widget.celebrity, from: FirebaseAuth.instance.currentUser.uid, amount: ( double.parse(quotation.text)));
 
                                                                               await addNotifications(type:"eventBooking",target: "celebrity", message: "${userData["fullName"]} has accepted your offer, You have recieved ${double.parse(quotation.text)*0.7} GHS for an event booking", from: FirebaseAuth.instance.currentUser.uid , to: widget.celebrity);
 

@@ -416,7 +416,7 @@ class _requestVideoState extends State<requestVideo> {
                                                                                 try {
                                                                                   Map userData = await getUserData(id: FirebaseAuth.instance.currentUser.uid);
 
-                                                                                  await addTransaction(discount: discountedAmount,flow: "out", message: "Video Request", to: widget.celebId, from:FirebaseAuth.instance.currentUser.uid , amount: ( (double.parse("${data["videoRequest"]["price"]  }"))));
+                                                                                  await addTransaction( message: "Video Request", to: widget.celebId, from:FirebaseAuth.instance.currentUser.uid , amount: ( (double.parse("${data["videoRequest"]["price"]  }"))));
 
                                                                                   await addNotifications(type:"videoRequest",target: "celebrity", message: "${userData["fullName"]} has made a video request", String: String, from: FirebaseAuth.instance.currentUser.uid, to: widget.celebId );
 
@@ -510,7 +510,7 @@ class _requestVideoState extends State<requestVideo> {
 
                                                                                 // await addToWallet(amount: ((amount.toDouble()) / 100) * 0.7, id: celebrity, type: "celebrities");
 
-                                                                                await addTransaction(flow: "out", message: "Video Request", to: widget.celebId, from:FirebaseAuth.instance.currentUser.uid , amount: ( (double.parse("${data["videoRequest"]["price"]  }")) ));
+                                                                                await addTransaction(message: "Video Request", to: widget.celebId, from:FirebaseAuth.instance.currentUser.uid , amount: ( (double.parse("${data["videoRequest"]["price"]  }")) ));
 
 
                                                                                 await addNotifications(type:"videoRequest",target: "celebrity", message: "${userData["fullName"]} has made a video Request", String: String, from: FirebaseAuth.instance.currentUser.uid, to: widget.celebId );

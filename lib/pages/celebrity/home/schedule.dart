@@ -96,7 +96,7 @@ class _bookingCardState extends State<bookingCard> {
 
 
                     await addNotifications(target: "user", message: "Your Event Booking was cancelled by ${celebData["fullName"]}.", from: FirebaseAuth.instance.currentUser.uid , to: user, type: "eventBooking");
-                    await addTransaction(flow: "in", message: "Refund", to: user, from: user, amount: reqData["amount"]);
+                    await addTransaction(message: "Refund", to: user, from: user, amount: reqData["amount"]);
 
                     await FirebaseFirestore.instance.collection("requests")
                         .doc(reqId)

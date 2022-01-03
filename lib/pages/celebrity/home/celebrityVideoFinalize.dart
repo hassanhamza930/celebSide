@@ -12,6 +12,7 @@ import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
@@ -49,7 +50,7 @@ class _celebrityVideoFinalizeState extends State<celebrityVideoFinalize> {
   void initState() {
     super.initState();
     _controller = VideoPlayerController.file(
-      File(widget.finalPath)
+        File(widget.finalPath)
         )
       ..initialize().then((_) {
         _controller.play();
@@ -93,21 +94,12 @@ class _celebrityVideoFinalizeState extends State<celebrityVideoFinalize> {
                       ),
                       onPressed: ()async {
 
-                        // showLoading(context: context);
-                        // final FlutterFFmpeg _flutterFFmpeg = new FlutterFFmpeg();
-                        //
-                        //
-                        // String appDocumentsPath = '/storage/emulated/0/Documents';
-                        // String filePath = '$appDocumentsPath/${DateTime.now().millisecond}.mp4';
-                        // File f = await getImageFileFromAssets('logoSmall.png');
-                        //
-                        //
-                        // await _flutterFFmpeg.execute('-i ${widget.finalPath} -i ${f.path} -vcodec mpeg4 -pix_fmt yuva420p -acodec aac -filter_complex overlay=(W-w)/2:(H-h)/1.2 $filePath').then((rc)=>print(rc));
-                        //
-                        // print("filePath is");
-                        // print(filePath);
+                        showLoading(context: context);
+                        final result = await ImageGallerySaver.saveFile(widget.finalPath);
+                        print("printing result");
+                        print(result);
 
-                        // Navigator.pop(context);
+                        Navigator.pop(context);
                         showMessage(context: context, message: "Saved in Gallery");
 
 
@@ -167,8 +159,14 @@ class _celebrityVideoFinalizeState extends State<celebrityVideoFinalize> {
                                    );
 
 
-                                   await addTransaction(flow: "in", message: "Video Request", to: FirebaseAuth.instance.currentUser.uid, from: user, amount: amount);
-                                   await addToWallet(amount: amount*0.7, id: FirebaseAuth.instance.currentUser.uid, type: "celebrities");
+                                   await addTransaction(
+                                       message: "Video Request",
+                                       to: FirebaseAuth.instance.currentUser.uid,
+                                       from: user,
+                                       amount: double.parse("${amount*0.7}").floorToDouble()
+                                   );
+
+                                   await addToWallet(amount: double.parse("${amount*0.7}").floorToDouble(), id: FirebaseAuth.instance.currentUser.uid, type: "celebrities");
 
                                   });
 
@@ -179,7 +177,7 @@ class _celebrityVideoFinalizeState extends State<celebrityVideoFinalize> {
                               Navigator.pop(context);
                               Navigator.pop(context);
                               Navigator.pop(context);
-                              showMessage(context: context, message: 'Congratulations! You have successfully recieved ${amount*0.7} GHS');
+                              showMessage(context: context, message: 'Congratulations! You have successfully recieved ${double.parse("${amount*0.7}").floorToDouble()} GHS');
 
                             }
                             else if (taskSnapshot.state == TaskState.running) {

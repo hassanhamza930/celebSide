@@ -114,11 +114,17 @@ class _celebrityVideoRecordState extends State<celebrityVideoRecord> {
                           await controller.initialize();
 
 
-                          final Directory appDirectory = await getExternalStorageDirectory();
-                          final String videoDirectory = '${appDirectory.path}/Videos';
-                          await Directory(videoDirectory).create(recursive: true);
-                          final String currentTime = DateTime.now().millisecondsSinceEpoch.toString();
-                          finalPath = '$videoDirectory/${currentTime}.mp4';
+                          try{
+                            final Directory appDirectory = await getExternalStorageDirectory();
+                            final String videoDirectory = '${appDirectory.path}/Videos';
+                            await Directory(videoDirectory).create(recursive: true);
+                            final String currentTime = DateTime.now().millisecondsSinceEpoch.toString();
+                            finalPath = '$videoDirectory/${currentTime}.mp4';
+                            print("created the directory");
+                          }
+                          catch(e){
+                            print(e.message);
+                          }
 
 
                           await controller.startVideoRecording(finalPath);

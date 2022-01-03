@@ -236,8 +236,7 @@ class _customizeShoutoutsState extends State<customizeShoutouts> {
                                             labelStyle: small(color: Colors.white),
                                             focusedBorder: InputBorder.none,
                                             enabledBorder: InputBorder.none,
-                                            contentPadding:
-                                            EdgeInsetsDirectional.only(start: 20),
+                                            contentPadding: EdgeInsetsDirectional.only(start: 20),
                                           ),
                                           onChanged: (e){
                                             setState(() {
@@ -284,7 +283,7 @@ class _customizeShoutoutsState extends State<customizeShoutouts> {
                                               promoDiscount=e;
                                             });
                                           },
-                                          keyboardType: TextInputType.text,
+                                          keyboardType: TextInputType.number,
                                         ),
                                       ),
                                     )

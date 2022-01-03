@@ -325,7 +325,7 @@ setRequestAsComplete({@required String userId, @required String type, @required 
 
   if(status=="pending"){
 
-    await addToWallet(amount: ((double.parse(messagePrice))), id: FirebaseAuth.instance.currentUser.uid, type: "celebrities");
+    await addToWallet(amount: ((double.parse(messagePrice).floorToDouble())), id: FirebaseAuth.instance.currentUser.uid, type: "celebrities");
 
     await FirebaseFirestore.instance.collection("requests").doc(docId).set({
       "status":"complete",
@@ -341,13 +341,15 @@ setRequestAsComplete({@required String userId, @required String type, @required 
         }
     );
 
-
-
     Navigator.pop(context);
 
-
-    await addTransaction(flow: "in", message: "DM request completed", to: FirebaseAuth.instance.currentUser.uid, from: FirebaseAuth.instance.currentUser.uid, amount: ((double.parse(messagePrice)) ));
-
+    await addTransaction(
+        message: "DM request completed",
+        to: FirebaseAuth.instance.currentUser.uid,
+        from: "letsvibe",
+        amount: ((double.parse(messagePrice)).floor().toDouble()),
+        personId: FirebaseAuth.instance.currentUser.uid
+    );
     showMessage(context: context, message: "Congratulations!, you just received ${(requestDoc["amount"])*0.7} GHS.");
 
   }

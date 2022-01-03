@@ -24,8 +24,9 @@ class pendingRow extends StatefulWidget {
   final String type;
   final videoDate;
   final docId;
+  final expiryDate;
 
-  pendingRow({@required this.amount,@required String this.docId,@required this.celebrity,@required this.user,@required this.createdAt,@required this.status,@required this.type,@required this.videoDate});
+  pendingRow({this.expiryDate ,@required this.amount,@required String this.docId,@required this.celebrity,@required this.user,@required this.createdAt,@required this.status,@required this.type,@required this.videoDate});
   @override
   _pendingRowState createState() => _pendingRowState();
 }
@@ -49,15 +50,10 @@ class _pendingRowState extends State<pendingRow> {
           // if(widget.createdAt)
 
           DateTime createdAt= widget.createdAt.toDate();
-          DateTime expiry;
+          DateTime expiry=widget.expiryDate.toDate();
 
 
-          if(widget.videoDate==null){
-            expiry= createdAt.add(Duration(days: int.parse( data["dm"]["responseTime"] ) ));
-          }
-          else{
-            expiry= widget.videoDate.toDate();
-          }
+
 
 
           print(expiry);
@@ -160,13 +156,10 @@ class _pendingRowState extends State<pendingRow> {
                           ).then((value)async{
                             Navigator.pop(context);
                             await addNotifications(target: "user", message: "Your ${widget.type=="dm"?"DM":"Video"} request has been refunded.", from: widget.celebrity, to: FirebaseAuth.instance.currentUser.uid, type: widget.type);
-                            await addTransaction(flow: "in", message: "Refund", to: FirebaseAuth.instance.currentUser.uid, from: FirebaseAuth.instance.currentUser.uid, amount: widget.amount);
+                            await addTransaction(message: "Refund", to: FirebaseAuth.instance.currentUser.uid, from: FirebaseAuth.instance.currentUser.uid, amount: widget.amount);
                             await showMessage(context: context, message: "${amount} GHS have been successfully refunded in to your wallet.");
                             FirebaseFirestore.instance.collection("requests").doc(docId).delete();
                           });
-
-
-
 
 
 
@@ -367,7 +360,17 @@ class _pendingState extends State<pending> {
               itemBuilder: (context,index){
                 Map data=docs[index].data();
 
-                return pendingRow(amount:data["amount"],celebrity: data["celebrity"],user: data["user"],createdAt: data["createdAt"],status: data["status"],type: data["type"],videoDate:data["videoDate"],docId:docs[index].id);
+                return pendingRow(
+                    amount:data["amount"],
+                    celebrity: data["celebrity"],
+                    user: data["user"],
+                    createdAt: data["createdAt"],
+                    expiryDate: data["expiryDate"],
+                    status: data["status"],
+                    type: data["type"],
+                    videoDate:data["videoDate"],
+                    docId:docs[index].id
+                );
               },
             );
           }

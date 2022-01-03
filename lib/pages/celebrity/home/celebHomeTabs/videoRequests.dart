@@ -239,8 +239,16 @@ class _celebrityHomePageRequestsVideoRequestsState extends State<celebrityHomePa
                           onPressed: ()async {
                             await FirebaseFirestore.instance.collection("requests").doc(widget.id).delete();
                             await addToWallet(amount:data["amount"] , id: data["user"], type: "users");
+
                             await addNotifications(target: "user", message: "Your Video Request was rejected, ${data["amount"]} GHS was refunded", from: FirebaseAuth.instance.currentUser.uid, to: data["user"], type: "videoRequest");
-                            await addTransaction(flow: 'in', message: "Video Request Refund", to: data["user"], from: data["celebrity"], amount: data["amount"]);
+
+                            await addTransaction(
+                                message: "Video Request Refund",
+                                to: data["user"],
+                                from: "letsvibe",
+                                amount: data["amount"],
+                                personId: data["user"]
+                            );
 
                           },
                           mini: true,

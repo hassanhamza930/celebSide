@@ -3,22 +3,27 @@ import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
 
 
-addTransaction({@required String flow,@required String message, @required String to, @required String from ,@required double amount,double discount=0})async{
+addTransaction({
+  @required double amount,
+  @required String message,
+  @required String to,
+  @required String from,
+  @required String personId
+})async{
 
   await FirebaseFirestore.instance.collection("transactions")
       .doc()
       .set(
-          {
-            "flow":flow,
-            "createdAt":DateTime.now(),
-            "message": message,
-            "to": to,
-            "from": from,
-            "amount": amount,
-            "discount":discount
-          },
-        SetOptions(merge: true)
-          );
+      {
+        "createdAt":DateTime.now(),
+        "message": message,
+        "to": to,
+        "from": from,
+        "amount": amount,
+        "personId":personId
+      },
+      SetOptions(merge: true)
+  );
 
 
 }

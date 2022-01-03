@@ -192,8 +192,8 @@ class _celebrityHomePageDmRequestRowState extends State<celebrityHomePageDmReque
                           onPressed: ()async {
                             await FirebaseFirestore.instance.collection("requests").doc(widget.id).delete();
                             await addToWallet(amount:data["amount"] , id: data["user"], type: "users");
-                            await addNotifications(target: "user", message: "Your Dm request was rejected, ${data["amount"]} GHS was refunded", from: FirebaseAuth.instance.currentUser.uid, to: data["user"], type: "dm");
-                            await addTransaction(flow: 'in', message: "Dm Refund", to: data["user"], from: data["celebrity"], amount: data["amount"]);
+                            await addNotifications(target: "user", message: "Your DM request was rejected, ${data["amount"]} GHS was refunded", from: FirebaseAuth.instance.currentUser.uid, to: data["user"], type: "dm");
+                            await addTransaction(personId:data["user"],message: "DM Refund", to: data["user"], from: "letsvibe", amount: data["amount"]);
 
                           },
                           mini: true,

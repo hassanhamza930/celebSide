@@ -359,7 +359,7 @@ class _earningHistoryState extends State<earningHistory> {
                             }
                           ):
                           StreamBuilder(
-                              stream: FirebaseFirestore.instance.collection("transactions").where("from",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("to",isEqualTo: "self").snapshots(),
+                              stream: FirebaseFirestore.instance.collection("transactions").where("from",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("to",isEqualTo: "bank").snapshots(),
                               builder: (context, snapshot) {
 
                                 if(snapshot.hasData){
@@ -380,7 +380,7 @@ class _earningHistoryState extends State<earningHistory> {
 
                                         var currentDoc=docsData[index];
 
-                                        return transactionRow(message: currentDoc["message"],createdAt: currentDoc["createdAt"],amount: currentDoc["amount"],flow: currentDoc["flow"],from: currentDoc["from"],to: currentDoc["to"],);
+                                        return transactionRow(message: currentDoc["message"],createdAt: currentDoc["createdAt"],amount: currentDoc["amount"],from: currentDoc["from"],to: currentDoc["to"],);
                                       }
                                   );
                                 }

@@ -1,6 +1,7 @@
 import 'package:celebside/pages/celebrity/home/requestTabs/seeLocation.dart';
 import 'package:celebside/pages/home/celebrityProfile/sendMessage/celebrityChat.dart';
 import 'package:celebside/pages/home/requests/booking.dart';
+import 'package:celebside/services/addNotifications.dart';
 import 'package:celebside/util/components.dart';
 import 'package:celebside/util/styles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -353,7 +354,7 @@ class _eventBookingRowState extends State<eventBookingRow> {
                           ),
                           Flexible(
                             child: Text(
-                              "¢${data["quotation"]}",
+                              "¢${data["amount"]}",
                               style: small(color: Colors.orange,size: 14),
                             ),
                           )
@@ -438,10 +439,18 @@ class _eventBookingRowState extends State<eventBookingRow> {
                                     FirebaseFirestore.instance.collection("requests").doc(widget.docId).set(
                                         {
                                           "status":"offered",
-                                          "quotation":double.parse(finalBookingFee.text),
+                                          "amount":double.parse(finalBookingFee.text),
                                           "celebrityMessage":message.text,
                                         },
                                         SetOptions(merge: true)
+                                    );
+
+                                    addNotifications(
+                                        target: "user",
+                                        message: "A celebrity has accepted your event booking offer.",
+                                        from: FirebaseAuth.instance.currentUser.uid,
+                                        to: data["user"],
+                                        type: "eventBooking"
                                     );
 
 
@@ -474,18 +483,20 @@ class _eventBookingRowState extends State<eventBookingRow> {
                             elevation: 0,
                             onPressed: ()async {
 
-                              showLoading(context: context);
 
 
-                              FirebaseFirestore.instance.collection("requests").doc(widget.docId).set(
-                                  {
-                                    "status":"rejected",
-                                  },
-                                  SetOptions(merge: true)
-                              );
+                              await FirebaseFirestore.instance.collection("requests").doc(widget.docId).delete();
+
+                              await addNotifications(target: "user", message: "Your Event Booking Request was rejected.", from: FirebaseAuth.instance.currentUser.uid, to: data["user"], type: "eventBooking");
+
+                              // FirebaseFirestore.instance.collection("requests").doc(widget.docId).set(
+                              //     {
+                              //       "status":"rejected",
+                              //     },
+                              //     SetOptions(merge: true)
+                              // );
 
 
-                              Navigator.pop(context);
 
                             },
                             mini: true,
@@ -533,7 +544,7 @@ class _eventBookingsState extends State<eventBookings> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("type",isEqualTo: "eventBooking").where("status",isEqualTo: widget.completed==true?"accepted":"pending").where("filtered",isEqualTo: true).snapshots(),
+      stream: FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("type",isEqualTo: "eventBooking").where("status",isEqualTo: widget.completed==true?"complete":"pending").where("filtered",isEqualTo: true).snapshots(),
       builder: (context, snapshot) {
 
         if(snapshot.hasData){

@@ -7,13 +7,12 @@ import "package:flutter/material.dart";
 calculateTotalEarnings({@required String celebId})async{
 
   var totalEarnings=0.0;
-  var response= await FirebaseFirestore.instance.collection("transactions").where("flow",isEqualTo: "out").where("to",isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
-  List docs=response.docs;
+  var resp= await FirebaseFirestore.instance.collection("transactions").where("personId",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("from",isEqualTo:"letsvibe").get();
+  List docs=resp.docs;
   docs.forEach((element) {
     totalEarnings+=double.parse("${element.data()["amount"]}");
   });
 
-  totalEarnings=totalEarnings*0.7;
   return Future.delayed(Duration(milliseconds: 100),(){
     print('returned');
     return double.parse("${totalEarnings}").floor();
@@ -25,7 +24,7 @@ calculateTotalEarnings({@required String celebId})async{
 calculateMonthlyEarnings({@required String celebId})async{
 
   var monthlyEarnings=0.0;
-  var resp= await FirebaseFirestore.instance.collection("transactions").where("flow",isEqualTo: "out").where("to",isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
+  var resp= await FirebaseFirestore.instance.collection("transactions").where("personId",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("from",isEqualTo:"letsvibe").get();
   List docs=resp.docs;
   DateTime monthStart= DateTime.now().subtract(Duration(days: DateTime.now().day));
 
@@ -38,7 +37,6 @@ calculateMonthlyEarnings({@required String celebId})async{
 
   });
 
-  monthlyEarnings=monthlyEarnings*0.7;
 
   return Future.delayed(Duration(milliseconds: 100),(){
     print('returned');
@@ -50,7 +48,7 @@ calculateMonthlyEarnings({@required String celebId})async{
 
 calculateLastMonthEarnings({@required String celebId})async {
   var lastMonthEarnings = 0.0;
-  var resp= await FirebaseFirestore.instance.collection("transactions").where("flow",isEqualTo: "out").where("to",isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
+  var resp= await FirebaseFirestore.instance.collection("transactions").where("personId",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("from",isEqualTo:"letsvibe").get();
   List docs = resp.docs;
   DateTime monthStart = DateTime.now().subtract(Duration(days: DateTime
       .now()
@@ -75,11 +73,12 @@ calculateLastMonthEarnings({@required String celebId})async {
 }
 
 
+
 calculateTotalBilled({@required String celebId})async{
   var totalBilled=0.0;
-  var totalBilledDocs= await FirebaseFirestore.instance.collection("transactions").where("flow",isEqualTo: "out").where("to",isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
+  var totalBilledDocs= await FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
   totalBilledDocs.docs.forEach((element) {
-    totalBilled+=double.parse("${element.data()["amount"]}");
+    totalBilled+=( double.parse("${element.data()["amount"]}"));
   });
 
   return Future.delayed(Duration(milliseconds: 10),(){
@@ -91,9 +90,9 @@ calculateTotalBilled({@required String celebId})async{
 
 calculateFeesCharged({@required String celebId})async{
   var totalBilled=0.0;
-  var totalBilledDocs= await FirebaseFirestore.instance.collection("transactions").where("flow",isEqualTo: "out").where("to",isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
+  var totalBilledDocs= await FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
   totalBilledDocs.docs.forEach((element) {
-    totalBilled+=double.parse("${element.data()["amount"]}");
+    totalBilled+=( double.parse("${element.data()["amount"]}") );
   });
 
   var feesCharged=totalBilled*0.3;
@@ -107,9 +106,9 @@ calculateFeesCharged({@required String celebId})async{
 
 calculateNetAfterFees({@required String celebId})async{
   var totalBilled=0.0;
-  var totalBilledDocs= await FirebaseFirestore.instance.collection("transactions").where("flow",isEqualTo: "out").where("to",isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
+  var totalBilledDocs= await FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
   totalBilledDocs.docs.forEach((element) {
-    totalBilled+=double.parse("${element.data()["amount"]}");
+    totalBilled+=( double.parse("${element.data()["amount"]}")   );
   });
 
   var netAfterFees=totalBilled*0.7;
@@ -124,7 +123,7 @@ calculateNetAfterFees({@required String celebId})async{
 
 calculateDiscount({@required String celebId})async{
   var discount=0.0;
-  var allDocs= await FirebaseFirestore.instance.collection("transactions").where("flow",isEqualTo: "out").where("to",isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
+  var allDocs= await FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
   allDocs.docs.forEach((element) {
     discount+=double.parse("${element.data()["discount"]}");
   });
@@ -144,7 +143,7 @@ calculateDiscount({@required String celebId})async{
 
 calculateRecievedEarnings({@required String celebId})async{
   var recievedEarnings=0.0;
-  var docs= await FirebaseFirestore.instance.collection("transactions").where("from",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("to",isEqualTo: "self").get();
+  var docs= await FirebaseFirestore.instance.collection("transactions").where("from",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("to",isEqualTo: "bank").get();
   docs.docs.forEach((element) {
     recievedEarnings+=double.parse("${element.data()["amount"]}");
   });

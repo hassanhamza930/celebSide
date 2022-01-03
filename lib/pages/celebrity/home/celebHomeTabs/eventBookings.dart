@@ -458,8 +458,8 @@ class _celebHomePageEventBookingRequestsRowState extends State<celebHomePageEven
                               heroTag: DateTime.now().toString(),
                               elevation: 0,
                               onPressed: () async{
-                                await FirebaseFirestore.instance.collection("requests").doc(widget.id).delete();
                                 await addNotifications(target: "user", message: "Your Event Booking Request was rejected.", from: FirebaseAuth.instance.currentUser.uid, to: widget.data["user"], type: "eventBooking");
+                                await FirebaseFirestore.instance.collection("requests").doc(widget.id).delete();
                               },
                               mini: true,
                               backgroundColor: Colors.black.withOpacity(0.2),
