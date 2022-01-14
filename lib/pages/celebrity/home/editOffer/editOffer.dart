@@ -110,16 +110,6 @@ class _editOfferState extends State<editOffer> {
                           ),
                           Row(
                             children: [
-                              Checkbox(value:data["videoRequest"]["charity"], onChanged: (e) {}),
-                              Flexible(
-                                  child: Text(
-                                    "Charity",
-                                    style: small(color: Colors.white, size: 14),
-                                  ))
-                            ],
-                          ),
-                          Row(
-                            children: [
                               Checkbox(value: data["videoRequest"]["hidden"], onChanged: (e) {}),
                               Flexible(
                                   child: Text(
@@ -220,16 +210,6 @@ class _editOfferState extends State<editOffer> {
                           ),
                           Row(
                             children: [
-                              Checkbox(value: data["dm"]["charity"], onChanged: (e) {}),
-                              Flexible(
-                                  child: Text(
-                                    "Charity ",
-                                    style: small(color: Colors.white, size: 14),
-                                  ))
-                            ],
-                          ),
-                          Row(
-                            children: [
                               Checkbox(value: data["dm"]["hidden"], onChanged: (e) {}),
                               Flexible(
                                   child: Text(
@@ -301,16 +281,6 @@ class _editOfferState extends State<editOffer> {
                                 color: Colors.white,
                               ),
                             ),
-                          ),
-                          Row(
-                            children: [
-                              Checkbox(value: data["eventBooking"]["charity"], onChanged: (e) {}),
-                              Flexible(
-                                  child: Text(
-                                    "Charity ",
-                                    style: small(color: Colors.white, size: 14),
-                                  ))
-                            ],
                           ),
                           Row(
                             children: [

@@ -74,6 +74,7 @@ class _bookingCardState extends State<bookingCard> {
                 GestureDetector(
                   onTap: ()async{
 
+                    showLoading();
 
                     Map reqData=widget.data;
                     String reqId=widget.docId;
@@ -102,7 +103,7 @@ class _bookingCardState extends State<bookingCard> {
                         .doc(reqId)
                         .delete();
 
-
+                    Navigator.pop(context);
 
                   },
                   child: Container(
@@ -232,7 +233,7 @@ class _scheduleState extends State<schedule> {
               ),
             ),
             StreamBuilder(
-              stream: FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("type",isEqualTo: "eventBooking").where("status",isEqualTo: "accepted").snapshots(),
+              stream: FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("type",isEqualTo: "eventBooking").where("status",isEqualTo: "complete").snapshots(),
               builder: (context, snapshot) {
 
                 if(snapshot.hasData){

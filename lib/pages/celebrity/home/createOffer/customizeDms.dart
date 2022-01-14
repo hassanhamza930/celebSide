@@ -121,20 +121,6 @@ class _customizeDmsState extends State<customizeDms> {
                               ),
                               Row(
                                 children: [
-                                  Checkbox(value: charity, onChanged: (e) {
-                                    setState(() {
-                                      charity=e;
-                                    });
-                                  }),
-                                  Flexible(
-                                      child: Text(
-                                        "Charity ( Tick for free video request for fans )",
-                                        style: small(color: Colors.white, size: 14),
-                                      ))
-                                ],
-                              ),
-                              Row(
-                                children: [
                                   Checkbox(value: hidden, onChanged: (e) {
                                     setState(() {
                                       hidden=e;

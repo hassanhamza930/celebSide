@@ -259,20 +259,6 @@ class _customizeEventBookingState extends State<customizeEventBooking> {
                                     ))
                               ],
                             ),
-                            Row(
-                              children: [
-                                Checkbox(value: charity, onChanged: (e) {
-                                  setState(() {
-                                    charity=e;
-                                  });
-                                }),
-                                Flexible(
-                                    child: Text(
-                                      "Charity ( Tick for free video request for fans )",
-                                      style: small(color: Colors.white, size: 14),
-                                    ))
-                              ],
-                            ),
                             SizedBox(
                               height: 20,
                             ),
@@ -314,294 +300,294 @@ class _customizeEventBookingState extends State<customizeEventBooking> {
                             SizedBox(
                               height: 50,
                             ),
-                            shown==true?
-                            Column(
-                              children: [
-                                Text("All Promo Codes",style: medium(color: Colors.orange,size: 25),textAlign: TextAlign.center,),
-                                SizedBox(height: 10,),
-                                Container(
-                                  width: width,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Flexible(child: AutoSizeText("Title",maxLines: 1,style: smallBold(color: Colors.white,size: 14),)),
-                                      Flexible(child: AutoSizeText("Discount",maxLines: 1,style:smallBold(color: Colors.white,size: 14),)),
-                                      Flexible(child: AutoSizeText("Code",maxLines: 1,style: smallBold(color: Colors.white,size: 14),)),
-                                      Flexible(child: AutoSizeText("Amount",maxLines: 1,style: smallBold(color: Colors.white,size: 14),)),
-                                      Flexible(child: AutoSizeText("Expiry",maxLines: 1,style: smallBold(color: Colors.white,size: 14),)),
-                                      TextButton(onPressed: ()async{},child: Icon(Icons.remove,color: Colors.transparent,),)
-                                    ],
-                                  ),
-                                ),
-                                data["eventBooking"]["promos"].length==0?Container(margin: EdgeInsets.only(top:10,bottom: 10),child: Text("All promo codes will be shown here",textAlign: TextAlign.center,style: small(color: Colors.white,size: 14),)):
-                                ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: data["eventBooking"]["promos"].length,
-                                    itemBuilder: (context,index){
-                                      var currentPromo=data["eventBooking"]["promos"][index];
-                                      return promoCodeRow(promoTitle: currentPromo["promoTitle"],promoCode:currentPromo["promoCode"],promoDiscount: currentPromo["promoDiscount"],totalPromoCodes: currentPromo["totalPromoCodes"],index: index,type: "eventBooking",expiry: currentPromo["expiry"].toDate().toString().split(" ")[0],);
-                                    }
-                                ),
-                                SizedBox(height: 50,),
-                                Text("Add Promo Code",style: medium(color: Colors.orange,size: 25),textAlign: TextAlign.center,),
-                                SizedBox(height: 30,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Flexible(
-                                        child: Text(
-                                          "Title",
-                                          style: small(color: Colors.white, size: 14),
-                                        )),
-                                    Container(
-                                      //padding: EdgeInsets.all(3),
-                                      width: MediaQuery.of(context).size.width * 0.5,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(0.05),
-                                          borderRadius:
-                                          BorderRadius.all(Radius.circular(18.0))),
-                                      child: Center(
-                                        child: TextField(
-                                          style: small(color: Colors.white),
-                                          decoration: InputDecoration(
-                                            hintStyle: small(color: Colors.white38),
-                                            hintText: "Example",
-                                            labelStyle: small(color: Colors.white),
-                                            focusedBorder: InputBorder.none,
-                                            enabledBorder: InputBorder.none,
-                                            contentPadding:
-                                            EdgeInsetsDirectional.only(start: 20),
-                                          ),
-                                          onChanged: (e){
-                                            setState(() {
-                                              promoTitle=e;
-                                            });
-                                          },
-                                          keyboardType: TextInputType.text,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(height: 10,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Flexible(
-                                        child: Text(
-                                          "Discount %",
-                                          style: small(color: Colors.white, size: 14),
-                                        )),
-                                    Container(
-                                      //padding: EdgeInsets.all(3),
-                                      width: MediaQuery.of(context).size.width * 0.5,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(0.05),
-                                          borderRadius:
-                                          BorderRadius.all(Radius.circular(18.0))),
-                                      child: Center(
-                                        child: TextField(
-                                          style: small(color: Colors.white),
-                                          decoration: InputDecoration(
-                                            //labelText: "Discount %",
-                                            hintText: "15%",
-                                            hintStyle: small(color: Colors.white38),
-                                            labelStyle: small(color: Colors.white),
-                                            focusedBorder: InputBorder.none,
-                                            enabledBorder: InputBorder.none,
-                                            contentPadding:
-                                            EdgeInsetsDirectional.only(start: 20),
-                                          ),
-                                          onChanged: (e){
-                                            setState(() {
-                                              promoDiscount=e;
-                                            });
-                                          },
-                                          keyboardType: TextInputType.number,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(height: 10,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Flexible(
-                                        child: Text(
-                                          "Code",
-                                          style: small(color: Colors.white, size: 14),
-                                        )),
-                                    Container(
-                                      //padding: EdgeInsets.all(3),
-                                      width: MediaQuery.of(context).size.width * 0.5,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(0.05),
-                                          borderRadius:
-                                          BorderRadius.all(Radius.circular(18.0))),
-                                      child: Center(
-                                        child: TextField(
-                                          style: small(color: Colors.white),
-                                          decoration: InputDecoration(
-                                            //labelText: "Discount %",
-                                            hintText: "Example",
-                                            hintStyle: small(color: Colors.white38),
-                                            labelStyle: small(color: Colors.white),
-                                            focusedBorder: InputBorder.none,
-                                            enabledBorder: InputBorder.none,
-                                            contentPadding:
-                                            EdgeInsetsDirectional.only(start: 20),
-                                          ),
-                                          onChanged: (e){
-                                            setState(() {
-                                              promoCode=e;
-                                            });
-                                          },
-                                          keyboardType: TextInputType.text,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(height: 10,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Flexible(
-                                        child: Text(
-                                          "Number of Promo Codes",
-                                          style: small(color: Colors.white, size: 14),
-                                        )),
-                                    Container(
-                                      //padding: EdgeInsets.all(3),
-                                      width: MediaQuery.of(context).size.width * 0.5,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(0.05),
-                                          borderRadius:
-                                          BorderRadius.all(Radius.circular(18.0))),
-                                      child: Center(
-                                        child: TextField(
-                                          style: small(color: Colors.white),
-                                          decoration: InputDecoration(
-                                            //labelText: "Discount %",
-                                            hintText: "50",
-                                            hintStyle: small(color: Colors.white38),
-                                            labelStyle: small(color: Colors.white),
-                                            focusedBorder: InputBorder.none,
-                                            enabledBorder: InputBorder.none,
-                                            contentPadding:
-                                            EdgeInsetsDirectional.only(start: 20),
-                                          ),
-                                          onChanged: (e){
-                                            setState(() {
-                                              totalPromoCodes=e;
-                                            });
-                                          },
-                                          keyboardType: TextInputType.number,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(height: 10,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Flexible(
-                                        child: Text(
-                                          "Expiry Date",
-                                          style: small(color: Colors.white, size: 14),
-                                        )),
-                                    GestureDetector(
-                                      onTap: () {
-                                        DatePicker.showDatePicker(context,
-                                            showTitleActions: true,
-                                            minTime: DateTime.now(),
-                                            maxTime: DateTime.now().add(Duration(days: 720)) , onChanged: (date) {
-                                              print('change $date');
-                                            },
-                                            onConfirm: (date) {
-                                              setState(() {
-                                                expiry = date;
-                                                expiryDisplay=date.toString().split(" ")[0];
-                                              });
-                                            }, currentTime: DateTime.now(), locale: LocaleType.en);
-                                      },
-                                      child: Container(
-                                        padding: EdgeInsets.all(3),
-                                        width: MediaQuery.of(context).size.width * 0.5,
-                                        decoration: BoxDecoration(
-                                            color: Colors.white.withOpacity(0.05),
-                                            borderRadius:
-                                            BorderRadius.all(Radius.circular(24.0))),
-                                        child: Center(
-                                          child: TextField(
-                                            enabled: false,
-                                            style: small(color: Colors.white),
-                                            decoration: InputDecoration(
-                                              labelText: "${expiryDisplay}",
-                                              labelStyle: small(color: Colors.white),
-                                              focusedBorder: InputBorder.none,
-                                              enabledBorder: InputBorder.none,
-                                              disabledBorder: InputBorder.none,
-                                              contentPadding:
-                                              EdgeInsetsDirectional.only(start: 20),
-                                            ),
-                                            onChanged: (e) => {},
-                                            keyboardType: TextInputType.text,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                authButton(
-                                    text: "Create",
-                                    color: Colors.white,
-                                    bg: Colors.orange,
-                                    onPress: () async{
-                                      if(promoTitle!="" && promoDiscount!="" && promoCode!="" && totalPromoCodes!="" && expiryDisplay!="Expiry Date" ){
-                                        showLoading(context: context);
-                                        print("ifed");
-
-                                        var currentPromos=data["eventBooking"]["promos"];
-                                        currentPromos.add(
-                                            {
-                                              "promoCode":promoCode,
-                                              "promoTitle":promoTitle,
-                                              "totalPromoCodes":totalPromoCodes,
-                                              "promoDiscount":promoDiscount,
-                                              "expiry":expiry
-                                            }
-                                        );
-
-                                        await FirebaseFirestore.instance.collection("celebrities").doc(FirebaseAuth.instance.currentUser.uid.toString()).set({"eventBooking":{"promos":currentPromos}},SetOptions(merge: true));
-
-                                        Navigator.pop(context);
-
-                                      }
-                                      else{
-                                        print("elsed");
-                                        showErrorDialogue(context: context, message: "Kindly fill out all Promo Code details");
-                                      }
-                                    },
-                                    context: context),
-                              ],
-                            ):
-                            Container(
-                              child:GestureDetector(
-                                onTap: (){
-                                  setState(() {
-                                    shown=true;
-                                  });
-                                },
-                                  child: Text("Manage promo codes",style: medium(color: Colors.orange,size: 18),textAlign: TextAlign.center,)
-                              ),
-                            ),
+                            // shown==true?
+                            // Column(
+                            //   children: [
+                            //     Text("All Promo Codes",style: medium(color: Colors.orange,size: 25),textAlign: TextAlign.center,),
+                            //     SizedBox(height: 10,),
+                            //     Container(
+                            //       width: width,
+                            //       child: Row(
+                            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //         children: [
+                            //           Flexible(child: AutoSizeText("Title",maxLines: 1,style: smallBold(color: Colors.white,size: 14),)),
+                            //           Flexible(child: AutoSizeText("Discount",maxLines: 1,style:smallBold(color: Colors.white,size: 14),)),
+                            //           Flexible(child: AutoSizeText("Code",maxLines: 1,style: smallBold(color: Colors.white,size: 14),)),
+                            //           Flexible(child: AutoSizeText("Amount",maxLines: 1,style: smallBold(color: Colors.white,size: 14),)),
+                            //           Flexible(child: AutoSizeText("Expiry",maxLines: 1,style: smallBold(color: Colors.white,size: 14),)),
+                            //           TextButton(onPressed: ()async{},child: Icon(Icons.remove,color: Colors.transparent,),)
+                            //         ],
+                            //       ),
+                            //     ),
+                            //     data["eventBooking"]["promos"].length==0?Container(margin: EdgeInsets.only(top:10,bottom: 10),child: Text("All promo codes will be shown here",textAlign: TextAlign.center,style: small(color: Colors.white,size: 14),)):
+                            //     ListView.builder(
+                            //         physics: NeverScrollableScrollPhysics(),
+                            //         shrinkWrap: true,
+                            //         itemCount: data["eventBooking"]["promos"].length,
+                            //         itemBuilder: (context,index){
+                            //           var currentPromo=data["eventBooking"]["promos"][index];
+                            //           return promoCodeRow(promoTitle: currentPromo["promoTitle"],promoCode:currentPromo["promoCode"],promoDiscount: currentPromo["promoDiscount"],totalPromoCodes: currentPromo["totalPromoCodes"],index: index,type: "eventBooking",expiry: currentPromo["expiry"].toDate().toString().split(" ")[0],);
+                            //         }
+                            //     ),
+                            //     SizedBox(height: 50,),
+                            //     Text("Add Promo Code",style: medium(color: Colors.orange,size: 25),textAlign: TextAlign.center,),
+                            //     SizedBox(height: 30,),
+                            //     Row(
+                            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //       children: [
+                            //         Flexible(
+                            //             child: Text(
+                            //               "Title",
+                            //               style: small(color: Colors.white, size: 14),
+                            //             )),
+                            //         Container(
+                            //           //padding: EdgeInsets.all(3),
+                            //           width: MediaQuery.of(context).size.width * 0.5,
+                            //           decoration: BoxDecoration(
+                            //               color: Colors.white.withOpacity(0.05),
+                            //               borderRadius:
+                            //               BorderRadius.all(Radius.circular(18.0))),
+                            //           child: Center(
+                            //             child: TextField(
+                            //               style: small(color: Colors.white),
+                            //               decoration: InputDecoration(
+                            //                 hintStyle: small(color: Colors.white38),
+                            //                 hintText: "Example",
+                            //                 labelStyle: small(color: Colors.white),
+                            //                 focusedBorder: InputBorder.none,
+                            //                 enabledBorder: InputBorder.none,
+                            //                 contentPadding:
+                            //                 EdgeInsetsDirectional.only(start: 20),
+                            //               ),
+                            //               onChanged: (e){
+                            //                 setState(() {
+                            //                   promoTitle=e;
+                            //                 });
+                            //               },
+                            //               keyboardType: TextInputType.text,
+                            //             ),
+                            //           ),
+                            //         )
+                            //       ],
+                            //     ),
+                            //     SizedBox(height: 10,),
+                            //     Row(
+                            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //       children: [
+                            //         Flexible(
+                            //             child: Text(
+                            //               "Discount %",
+                            //               style: small(color: Colors.white, size: 14),
+                            //             )),
+                            //         Container(
+                            //           //padding: EdgeInsets.all(3),
+                            //           width: MediaQuery.of(context).size.width * 0.5,
+                            //           decoration: BoxDecoration(
+                            //               color: Colors.white.withOpacity(0.05),
+                            //               borderRadius:
+                            //               BorderRadius.all(Radius.circular(18.0))),
+                            //           child: Center(
+                            //             child: TextField(
+                            //               style: small(color: Colors.white),
+                            //               decoration: InputDecoration(
+                            //                 //labelText: "Discount %",
+                            //                 hintText: "15%",
+                            //                 hintStyle: small(color: Colors.white38),
+                            //                 labelStyle: small(color: Colors.white),
+                            //                 focusedBorder: InputBorder.none,
+                            //                 enabledBorder: InputBorder.none,
+                            //                 contentPadding:
+                            //                 EdgeInsetsDirectional.only(start: 20),
+                            //               ),
+                            //               onChanged: (e){
+                            //                 setState(() {
+                            //                   promoDiscount=e;
+                            //                 });
+                            //               },
+                            //               keyboardType: TextInputType.number,
+                            //             ),
+                            //           ),
+                            //         )
+                            //       ],
+                            //     ),
+                            //     SizedBox(height: 10,),
+                            //     Row(
+                            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //       children: [
+                            //         Flexible(
+                            //             child: Text(
+                            //               "Code",
+                            //               style: small(color: Colors.white, size: 14),
+                            //             )),
+                            //         Container(
+                            //           //padding: EdgeInsets.all(3),
+                            //           width: MediaQuery.of(context).size.width * 0.5,
+                            //           decoration: BoxDecoration(
+                            //               color: Colors.white.withOpacity(0.05),
+                            //               borderRadius:
+                            //               BorderRadius.all(Radius.circular(18.0))),
+                            //           child: Center(
+                            //             child: TextField(
+                            //               style: small(color: Colors.white),
+                            //               decoration: InputDecoration(
+                            //                 //labelText: "Discount %",
+                            //                 hintText: "Example",
+                            //                 hintStyle: small(color: Colors.white38),
+                            //                 labelStyle: small(color: Colors.white),
+                            //                 focusedBorder: InputBorder.none,
+                            //                 enabledBorder: InputBorder.none,
+                            //                 contentPadding:
+                            //                 EdgeInsetsDirectional.only(start: 20),
+                            //               ),
+                            //               onChanged: (e){
+                            //                 setState(() {
+                            //                   promoCode=e;
+                            //                 });
+                            //               },
+                            //               keyboardType: TextInputType.text,
+                            //             ),
+                            //           ),
+                            //         )
+                            //       ],
+                            //     ),
+                            //     SizedBox(height: 10,),
+                            //     Row(
+                            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //       children: [
+                            //         Flexible(
+                            //             child: Text(
+                            //               "Number of Promo Codes",
+                            //               style: small(color: Colors.white, size: 14),
+                            //             )),
+                            //         Container(
+                            //           //padding: EdgeInsets.all(3),
+                            //           width: MediaQuery.of(context).size.width * 0.5,
+                            //           decoration: BoxDecoration(
+                            //               color: Colors.white.withOpacity(0.05),
+                            //               borderRadius:
+                            //               BorderRadius.all(Radius.circular(18.0))),
+                            //           child: Center(
+                            //             child: TextField(
+                            //               style: small(color: Colors.white),
+                            //               decoration: InputDecoration(
+                            //                 //labelText: "Discount %",
+                            //                 hintText: "50",
+                            //                 hintStyle: small(color: Colors.white38),
+                            //                 labelStyle: small(color: Colors.white),
+                            //                 focusedBorder: InputBorder.none,
+                            //                 enabledBorder: InputBorder.none,
+                            //                 contentPadding:
+                            //                 EdgeInsetsDirectional.only(start: 20),
+                            //               ),
+                            //               onChanged: (e){
+                            //                 setState(() {
+                            //                   totalPromoCodes=e;
+                            //                 });
+                            //               },
+                            //               keyboardType: TextInputType.number,
+                            //             ),
+                            //           ),
+                            //         )
+                            //       ],
+                            //     ),
+                            //     SizedBox(height: 10,),
+                            //     Row(
+                            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //       children: [
+                            //         Flexible(
+                            //             child: Text(
+                            //               "Expiry Date",
+                            //               style: small(color: Colors.white, size: 14),
+                            //             )),
+                            //         GestureDetector(
+                            //           onTap: () {
+                            //             DatePicker.showDatePicker(context,
+                            //                 showTitleActions: true,
+                            //                 minTime: DateTime.now(),
+                            //                 maxTime: DateTime.now().add(Duration(days: 720)) , onChanged: (date) {
+                            //                   print('change $date');
+                            //                 },
+                            //                 onConfirm: (date) {
+                            //                   setState(() {
+                            //                     expiry = date;
+                            //                     expiryDisplay=date.toString().split(" ")[0];
+                            //                   });
+                            //                 }, currentTime: DateTime.now(), locale: LocaleType.en);
+                            //           },
+                            //           child: Container(
+                            //             padding: EdgeInsets.all(3),
+                            //             width: MediaQuery.of(context).size.width * 0.5,
+                            //             decoration: BoxDecoration(
+                            //                 color: Colors.white.withOpacity(0.05),
+                            //                 borderRadius:
+                            //                 BorderRadius.all(Radius.circular(24.0))),
+                            //             child: Center(
+                            //               child: TextField(
+                            //                 enabled: false,
+                            //                 style: small(color: Colors.white),
+                            //                 decoration: InputDecoration(
+                            //                   labelText: "${expiryDisplay}",
+                            //                   labelStyle: small(color: Colors.white),
+                            //                   focusedBorder: InputBorder.none,
+                            //                   enabledBorder: InputBorder.none,
+                            //                   disabledBorder: InputBorder.none,
+                            //                   contentPadding:
+                            //                   EdgeInsetsDirectional.only(start: 20),
+                            //                 ),
+                            //                 onChanged: (e) => {},
+                            //                 keyboardType: TextInputType.text,
+                            //               ),
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //     SizedBox(
+                            //       height: 30,
+                            //     ),
+                            //     authButton(
+                            //         text: "Create",
+                            //         color: Colors.white,
+                            //         bg: Colors.orange,
+                            //         onPress: () async{
+                            //           if(promoTitle!="" && promoDiscount!="" && promoCode!="" && totalPromoCodes!="" && expiryDisplay!="Expiry Date" ){
+                            //             showLoading(context: context);
+                            //             print("ifed");
+                            //
+                            //             var currentPromos=data["eventBooking"]["promos"];
+                            //             currentPromos.add(
+                            //                 {
+                            //                   "promoCode":promoCode,
+                            //                   "promoTitle":promoTitle,
+                            //                   "totalPromoCodes":totalPromoCodes,
+                            //                   "promoDiscount":promoDiscount,
+                            //                   "expiry":expiry
+                            //                 }
+                            //             );
+                            //
+                            //             await FirebaseFirestore.instance.collection("celebrities").doc(FirebaseAuth.instance.currentUser.uid.toString()).set({"eventBooking":{"promos":currentPromos}},SetOptions(merge: true));
+                            //
+                            //             Navigator.pop(context);
+                            //
+                            //           }
+                            //           else{
+                            //             print("elsed");
+                            //             showErrorDialogue(context: context, message: "Kindly fill out all Promo Code details");
+                            //           }
+                            //         },
+                            //         context: context),
+                            //   ],
+                            // ):
+                            // Container(
+                            //   child:GestureDetector(
+                            //     onTap: (){
+                            //       setState(() {
+                            //         shown=true;
+                            //       });
+                            //     },
+                            //       child: Text("Manage promo codes",style: medium(color: Colors.orange,size: 18),textAlign: TextAlign.center,)
+                            //   ),
+                            // ),
                             SizedBox(
                               height: 100,
                             ),
