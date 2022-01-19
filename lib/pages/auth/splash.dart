@@ -86,7 +86,7 @@ class _SplashState extends State<Splash> {
 
     }
     else{
-      print("nah nigga");
+      print("nah ");
     }
   }
 
@@ -108,8 +108,9 @@ class _SplashState extends State<Splash> {
             }));
           }
           else{
+            await FirebaseAuth.instance.signOut();
             Navigator.push(context, CupertinoPageRoute(builder: (context){
-              return Scaffold(backgroundColor: Colors.black,body: Center(child: Text("Please Contact Administrator",style: small(color: Colors.white),),),);
+              return Scaffold(backgroundColor: Colors.black,body: Center(child: Text("You have been logged out, Your account may have been terminated. Please Contact Administrator",style: small(color: Colors.white),),),);
             }));
           }
 
