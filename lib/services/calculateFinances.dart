@@ -76,7 +76,7 @@ calculateLastMonthEarnings({@required String celebId})async {
 
 calculateTotalBilled({@required String celebId})async{
   var totalBilled=0.0;
-  var totalBilledDocs= await FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
+  var totalBilledDocs= await FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("status",isEqualTo: "complete").get();
   totalBilledDocs.docs.forEach((element) {
     totalBilled+=( double.parse("${element.data()["amount"]}"));
   });
@@ -90,7 +90,7 @@ calculateTotalBilled({@required String celebId})async{
 
 calculateFeesCharged({@required String celebId})async{
   var totalBilled=0.0;
-  var totalBilledDocs= await FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
+  var totalBilledDocs= await FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("status",isEqualTo: "complete").get();
   totalBilledDocs.docs.forEach((element) {
     totalBilled+=( double.parse("${element.data()["amount"]}") );
   });
@@ -106,7 +106,7 @@ calculateFeesCharged({@required String celebId})async{
 
 calculateNetAfterFees({@required String celebId})async{
   var totalBilled=0.0;
-  var totalBilledDocs= await FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
+  var totalBilledDocs= await FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("status",isEqualTo: "complete").get();
   totalBilledDocs.docs.forEach((element) {
     totalBilled+=( double.parse("${element.data()["amount"]}")   );
   });
@@ -123,7 +123,7 @@ calculateNetAfterFees({@required String celebId})async{
 
 calculateDiscount({@required String celebId})async{
   var discount=0.0;
-  var allDocs= await FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
+  var allDocs= await FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("status",isEqualTo: "complete").get();
   allDocs.docs.forEach((element) {
     discount+=double.parse("${element.data()["discount"]}");
   });

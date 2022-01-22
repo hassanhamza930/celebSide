@@ -109,9 +109,16 @@ class _SplashState extends State<Splash> {
           }
           else{
             await FirebaseAuth.instance.signOut();
-            Navigator.push(context, CupertinoPageRoute(builder: (context){
-              return Scaffold(backgroundColor: Colors.black,body: Center(child: Text("You have been logged out, Your account may have been terminated. Please Contact Administrator",style: small(color: Colors.white),),),);
-            }));
+            showMessage(context: context,message: "You have been logged out, Your account may have been terminated. Please Contact Administrator");
+
+            Future.delayed(Duration(seconds: 5),(){
+              Navigator.pop(context);
+              Navigator.push(context, CupertinoPageRoute(builder: (context) {
+                return celebrityWelcome();
+              }));
+
+            });
+            
           }
 
         }

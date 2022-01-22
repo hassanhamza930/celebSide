@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'bannerWelcome.dart';
 import 'celebLogin.dart';
 import '../home/celebrityHome.dart';
@@ -18,6 +21,7 @@ class _celebrityWelcomeState extends State<celebrityWelcome> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
 
+
     return Scaffold(
       body: Stack(
         children: [
@@ -32,77 +36,79 @@ class _celebrityWelcomeState extends State<celebrityWelcome> {
             width: width,
             child: Center(
                 child: Container(
-              width: width * 0.9,
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  Container(
-                      child: Image.asset(
-                    "assets/icon.png",
-                    height: 100,
-                    fit: BoxFit.contain,
-                  )),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  Text(
-                    "Why Join LetsVibe?",
-                    style: mediumBold(color: Colors.white),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  bannerWelcome(),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  Center(
-                    child: authButton(
-                        text: "Enroll as Celebrity",
-                        color: Colors.white,
-                        bg: Colors.blue,
-                        onPress: () {
-                          Navigator.push(context,
-                              CupertinoPageRoute(builder: (context) {
-                            return celebSignup();
-                          }));
-                        },
-                        context: context,
-                        thin: true),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  width: width * 0.9,
+                  child: ListView(
+                    shrinkWrap: true,
                     children: [
+                      Container(
+                          child: Image.asset(
+                            "assets/icon.png",
+                            height: 100,
+                            fit: BoxFit.contain,
+                          )),
+                      SizedBox(
+                        height: 50,
+                      ),
                       Text(
-                        "Already Enrolled?  ",
+                        "Why Join LetsVibe?",
+                        style: mediumBold(color: Colors.white),
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 17, color: Colors.white),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,
-                              CupertinoPageRoute(builder: (context) {
-                            return celebLogin();
-                          }));
-                        },
-                        child: Text(
-                          "Login",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 17, color: Colors.orange),
-                        ),
+                      SizedBox(
+                        height: 20,
                       ),
+                      bannerWelcome(),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      Center(
+                        child: authButton(
+                            text: "Enroll as Celebrity",
+                            color: Colors.white,
+                            bg: Colors.blue,
+                            onPress: () {
+                              Navigator.push(context,
+                                  CupertinoPageRoute(builder: (context) {
+                                    return celebSignup();
+                                  }));
+                            },
+                            context: context,
+                            thin: true),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Already Enrolled?  ",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 17, color: Colors.white),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(context,
+                                  CupertinoPageRoute(builder: (context) {
+                                    return celebLogin();
+                                  }));
+                            },
+                            child: Text(
+                              "Login",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 17, color: Colors.orange),
+                            ),
+                          ),
+                        ],
+                      )
                     ],
-                  )
-                ],
-              ),
-            )),
+                  ),
+                )),
           ),
         ],
       ),
     );
+
+
   }
 }

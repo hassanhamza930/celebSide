@@ -236,7 +236,7 @@ class _earningHistoryState extends State<earningHistory> {
                                           children: [
                                             Text("Total Number of Requests",style: small(color: Colors.white),),
                                             StreamBuilder(
-                                              stream: FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).snapshots(),
+                                              stream: FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("status",isEqualTo:"complete").snapshots(),
                                               builder: (context, snapshot) {
                                                 if(snapshot.hasData){
                                                   QuerySnapshot data=snapshot.data;

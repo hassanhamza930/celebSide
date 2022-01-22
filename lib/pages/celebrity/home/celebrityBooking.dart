@@ -16,6 +16,14 @@ var topBar = 0;
 var pageHeight = 1000;
 var controller = PageController(initialPage: 0);
 
+
+var pages=[
+  allCelebHomeTabRequests(),
+  dms(),
+  videoRequests(),
+  eventBookings()
+];
+
 class celebrityBookings extends StatefulWidget {
   @override
   _celebrityBookingsState createState() => _celebrityBookingsState();
@@ -64,7 +72,7 @@ class _celebrityBookingsState extends State<celebrityBookings>
                 children: [
                   topBar == 0
                       ? StreamBuilder(
-                        stream: FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("filtered",isEqualTo:false).snapshots(),
+                        stream: FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("filtered",isEqualTo:false).where('status',isNotEqualTo: "refunded").snapshots(),
                         builder: (context, snapshot) {
                           if(snapshot.hasData){
                             QuerySnapshot doc=snapshot.data;
@@ -73,9 +81,10 @@ class _celebrityBookingsState extends State<celebrityBookings>
                             var videoRequest=0;
                             var eventBooking=0;
 
+
                             doc.docs.forEach((element) {
                               Map data=element.data();
-                              if(data["type"]=="dm"){
+                              if(data["type"]=="dm" ){
                                 dm+=1;
                               }
                               if(data["type"]=="videoRequest"){
@@ -850,123 +859,6 @@ class _celebrityBookingsState extends State<celebrityBookings>
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         children: [
-                          // Container(
-                          //   color: Color.fromRGBO(24, 48, 93, 1),
-                          //   padding: EdgeInsets.only(top: 20, bottom: 20),
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          //     children: [
-                          //       TextButton(
-                          //         onPressed: () {
-                          //           print('one');
-                          //           setState(() {
-                          //             currentTab = 0;
-                          //           });
-                          //         },
-                          //         child: Column(
-                          //           mainAxisAlignment: MainAxisAlignment.center,
-                          //           children: [
-                          //             Row(
-                          //               children: [
-                          //                 Text(
-                          //                   "New Requests",
-                          //                   textAlign: TextAlign.center,
-                          //                   style: TextStyle(
-                          //                     fontSize: 22,
-                          //                     color: Colors.white,
-                          //                     fontFamily: "Avenir",
-                          //                   ),
-                          //                 ),
-                          //                 SizedBox(
-                          //                   width: 5,
-                          //                 ),
-                          //                 Container(
-                          //                   decoration: BoxDecoration(
-                          //                       color: Colors.orange,
-                          //                       borderRadius: BorderRadius.all(
-                          //                           Radius.circular(20))),
-                          //                   padding: EdgeInsets.only(
-                          //                       top: 3,
-                          //                       bottom: 3,
-                          //                       left: 6,
-                          //                       right: 6),
-                          //                   child: Text(
-                          //                     "3",
-                          //                     style: small(color: Colors.white),
-                          //                   ),
-                          //                 )
-                          //               ],
-                          //             ),
-                          //             SizedBox(
-                          //               height: 10,
-                          //             ),
-                          //             Container(
-                          //               width: width * 0.4,
-                          //               height: 5,
-                          //               color: currentTab == 0
-                          //                   ? Colors.white
-                          //                   : Colors.transparent,
-                          //             )
-                          //           ],
-                          //         ),
-                          //       ),
-                          //       TextButton(
-                          //         onPressed: () {
-                          //           print('two');
-                          //           setState(() {
-                          //             currentTab = 1;
-                          //           });
-                          //         },
-                          //         child: Column(
-                          //           mainAxisAlignment: MainAxisAlignment.center,
-                          //           children: [
-                          //             Row(
-                          //               children: [
-                          //                 Text(
-                          //                   "Pending",
-                          //                   textAlign: TextAlign.center,
-                          //                   style: TextStyle(
-                          //                     fontSize: 22,
-                          //                     color: Colors.white,
-                          //                     fontFamily: "Avenir",
-                          //                   ),
-                          //                 ),
-                          //                 SizedBox(
-                          //                   width: 5,
-                          //                 ),
-                          //                 Container(
-                          //                   decoration: BoxDecoration(
-                          //                       color: Colors.orange,
-                          //                       borderRadius: BorderRadius.all(
-                          //                           Radius.circular(20))),
-                          //                   padding: EdgeInsets.only(
-                          //                       top: 3,
-                          //                       bottom: 3,
-                          //                       left: 6,
-                          //                       right: 6),
-                          //                   child: Text(
-                          //                     "7",
-                          //                     style: small(color: Colors.white),
-                          //                   ),
-                          //                 )
-                          //               ],
-                          //             ),
-                          //             SizedBox(
-                          //               height: 10,
-                          //             ),
-                          //             Container(
-                          //               width: width * 0.4,
-                          //               height: 5,
-                          //               color: currentTab == 1
-                          //                   ? Colors.white
-                          //                   : Colors.transparent,
-                          //             )
-                          //           ],
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
                           SizedBox(
                             height: 20,
                           ),
@@ -976,9 +868,10 @@ class _celebrityBookingsState extends State<celebrityBookings>
                               GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    controller.animateToPage(0,
-                                        duration: Duration(milliseconds: 300),
-                                        curve: Curves.easeInOut);
+                                    subTab=0;
+                                    // controller.animateToPage(0,
+                                    //     duration: Duration(milliseconds: 300),
+                                    //     curve: Curves.easeInOut);
                                   });
                                 },
                                 child: Container(
@@ -1012,9 +905,11 @@ class _celebrityBookingsState extends State<celebrityBookings>
                               GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    controller.animateToPage(1,
-                                        duration: Duration(milliseconds: 300),
-                                        curve: Curves.easeInOut);
+                                    subTab=1;
+
+                                    // controller.animateToPage(1,
+                                    //     duration: Duration(milliseconds: 300),
+                                    //     curve: Curves.easeInOut);
                                   });
                                 },
                                 child: Container(
@@ -1048,9 +943,11 @@ class _celebrityBookingsState extends State<celebrityBookings>
                               GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    controller.animateToPage(2,
-                                        duration: Duration(milliseconds: 300),
-                                        curve: Curves.easeInOut);
+                                    subTab=2;
+
+                                    // controller.animateToPage(2,
+                                    //     duration: Duration(milliseconds: 300),
+                                    //     curve: Curves.easeInOut);
                                   });
                                 },
                                 child: Container(
@@ -1084,9 +981,11 @@ class _celebrityBookingsState extends State<celebrityBookings>
                               GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    controller.animateToPage(3,
-                                        duration: Duration(milliseconds: 300),
-                                        curve: Curves.easeInOut);
+                                    subTab=3;
+
+                                    // controller.animateToPage(3,
+                                    //     duration: Duration(milliseconds: 300),
+                                    //     curve: Curves.easeInOut);
                                   });
                                 },
                                 child: Container(
@@ -1119,21 +1018,7 @@ class _celebrityBookingsState extends State<celebrityBookings>
                           ),
                           Container(
                             height: pageHeight.toDouble(),
-                            child: PageView(
-                              controller: controller,
-                              onPageChanged: (page) {
-                                setState(() {
-                                  print(page);
-                                  subTab = page;
-                                });
-                              },
-                              children: [
-                                allCelebHomeTabRequests(),
-                                dms(),
-                                videoRequests(),
-                                eventBookings()
-                              ],
-                            ),
+                            child: pages[subTab]
                           ),
                         ],
                       )),
