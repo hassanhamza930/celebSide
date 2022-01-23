@@ -165,7 +165,19 @@ class _celebFanClubState extends State<celebFanClub> {
                                 },
                                 child: Column(
                                   children: [
-                                    Text("${data["reviews"]}",style: small(color: Colors.white),),
+                                    StreamBuilder(
+                                      stream: FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: "${FirebaseAuth.instance.currentUser.uid}").where("status",isEqualTo: "complete").where("reviewed",isEqualTo: true).snapshots(),
+                                      builder: (context, snapshot) {
+                                        if(snapshot.hasData){
+                                          var data=snapshot.data;
+                                          var docs=data.docs;
+                                          return Text("${docs.length}",style: small(color: Colors.white),);
+                                        }
+                                        else{
+                                          return Text("0",style: small(color: Colors.white),);
+                                        }
+                                      }
+                                    ),
                                     Text("Reviews",style: small(color: Colors.orange),),
                                   ],
                                 ),

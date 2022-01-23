@@ -237,7 +237,13 @@ class _celebrityHomePageRequestsVideoRequestsState extends State<celebrityHomePa
                           heroTag: DateTime.now().toString(),
                           elevation: 0,
                           onPressed: ()async {
-                            await FirebaseFirestore.instance.collection("requests").doc(widget.id).delete();
+                            await FirebaseFirestore.instance.collection("requests").doc(widget.id).set(
+                              {
+                                "status":"refunded"
+                              },
+                              SetOptions(merge:true)
+                            );
+
                             await addToWallet(amount:data["amount"] , id: data["user"], type: "users");
 
                             await addNotifications(target: "user", message: "Your Video Request was rejected, ${data["amount"]} GHS was refunded", from: FirebaseAuth.instance.currentUser.uid, to: data["user"], type: "videoRequest");

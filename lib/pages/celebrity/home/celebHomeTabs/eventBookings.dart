@@ -419,6 +419,7 @@ class _celebHomePageEventBookingRequestsRowState extends State<celebHomePageEven
                             Flexible(
                               child: Text(
                                 "${widget.data["anyOtherEngagements"]}",
+                                textAlign: TextAlign.right,
                                 style: small(color: Colors.orange,size: 14),
                               ),
                             )
@@ -459,7 +460,12 @@ class _celebHomePageEventBookingRequestsRowState extends State<celebHomePageEven
                               elevation: 0,
                               onPressed: () async{
                                 await addNotifications(target: "user", message: "Your Event Booking Request was rejected.", from: FirebaseAuth.instance.currentUser.uid, to: widget.data["user"], type: "eventBooking");
-                                await FirebaseFirestore.instance.collection("requests").doc(widget.id).delete();
+                                await FirebaseFirestore.instance.collection("requests").doc(widget.id).set(
+                                  {
+                                    "status":"rejected"
+                                  },
+                                  SetOptions(merge: true)
+                                );
                               },
                               mini: true,
                               backgroundColor: Colors.black.withOpacity(0.2),

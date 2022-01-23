@@ -72,7 +72,7 @@ class _celebrityBookingsState extends State<celebrityBookings>
                 children: [
                   topBar == 0
                       ? StreamBuilder(
-                        stream: FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("filtered",isEqualTo:false).where('status',isNotEqualTo: "refunded").snapshots(),
+                        stream: FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("filtered",isEqualTo:false).where('status',isEqualTo: "pending").snapshots(),
                         builder: (context, snapshot) {
                           if(snapshot.hasData){
                             QuerySnapshot doc=snapshot.data;

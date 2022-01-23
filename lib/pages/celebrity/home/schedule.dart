@@ -74,15 +74,28 @@ class _bookingCardState extends State<bookingCard> {
                 GestureDetector(
                   onTap: ()async{
 
-                    showLoading();
+
 
                     Map reqData=widget.data;
                     String reqId=widget.docId;
                     String user=widget.data["user"];
+
+                    await FirebaseFirestore.instance.collection("requests")
+                        .doc(reqId)
+                        .set(
+                        {
+                          "status":"refunded"
+                        },
+                        SetOptions(merge:true)
+                    );
+
+
                     Map userData=await getUserData(id: user);
                     Map celebData=await getCelebrityData(id: FirebaseAuth.instance.currentUser.uid);
 
                     userData["wallet"]+=reqData["amount"];
+
+
 
                     await FirebaseFirestore.instance
                     .collection("users")
@@ -96,14 +109,11 @@ class _bookingCardState extends State<bookingCard> {
 
 
 
-                    await addNotifications(target: "user", message: "Your Event Booking was cancelled by ${celebData["fullName"]}.", from: FirebaseAuth.instance.currentUser.uid , to: user, type: "eventBooking");
+                    await addNotifications(target: "user", message: "Your Event Booking was cancelled by ${celebData["fullName"]}. ${double.parse("${reqData["amount"]}").floorToDouble()} GHS have been refunded.", from: FirebaseAuth.instance.currentUser.uid , to: user, type: "eventBooking");
                     await addTransaction(message: "Refund", to: user, from: user, amount: reqData["amount"]);
 
-                    await FirebaseFirestore.instance.collection("requests")
-                        .doc(reqId)
-                        .delete();
 
-                    Navigator.pop(context);
+
 
                   },
                   child: Container(
@@ -250,7 +260,7 @@ class _scheduleState extends State<schedule> {
                       hour="0${element["timeStart"]}";
                     }
                     else{
-                      hour="${element["timeStart"]}";
+                      hour="${12+int.parse("${element["timeStart"]}")}";
                     }
 
 
@@ -264,7 +274,7 @@ class _scheduleState extends State<schedule> {
                       hour2="0${element["timeEnd"]}";
                     }
                     else{
-                      hour2="${element["timeEnd"]}";
+                      hour2="${12+int.parse("${element["timeEnd"]}")}";
                     }
 
 

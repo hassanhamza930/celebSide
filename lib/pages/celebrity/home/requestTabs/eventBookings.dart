@@ -483,20 +483,14 @@ class _eventBookingRowState extends State<eventBookingRow> {
                             elevation: 0,
                             onPressed: ()async {
 
-
-
-                              await FirebaseFirestore.instance.collection("requests").doc(widget.docId).delete();
+                              await FirebaseFirestore.instance.collection("requests").doc(widget.docId).set(
+                                {
+                                  "status":"rejected"
+                                },
+                                SetOptions(merge: true)
+                              );
 
                               await addNotifications(target: "user", message: "Your Event Booking Request was rejected.", from: FirebaseAuth.instance.currentUser.uid, to: data["user"], type: "eventBooking");
-
-                              // FirebaseFirestore.instance.collection("requests").doc(widget.docId).set(
-                              //     {
-                              //       "status":"rejected",
-                              //     },
-                              //     SetOptions(merge: true)
-                              // );
-
-
 
                             },
                             mini: true,
