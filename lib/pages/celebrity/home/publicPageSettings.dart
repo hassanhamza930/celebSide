@@ -1,6 +1,6 @@
 
 import 'dart:io';
-
+import 'package:celebside/pages/util/categories.dart';
 import 'package:celebside/util/components.dart';
 import 'package:celebside/util/styles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -31,7 +31,7 @@ class _publicPageSettingsState extends State<publicPageSettings> {
 
     setState(() {
       aboutMe.text=data["about"];
-      interests=data["interests"];
+      // interests=data["interests"];
       loading=false;
     });
   }
@@ -39,7 +39,6 @@ class _publicPageSettingsState extends State<publicPageSettings> {
 
   @override
   void initState() {
-
     fetchOneTime();
     super.initState();
   }
@@ -106,12 +105,7 @@ class _publicPageSettingsState extends State<publicPageSettings> {
 
                               GestureDetector(
                                 onTap: ()async{
-                                  print("Image");
-                                  // var storage=await FirebaseStorage.instance;
-                                  // var ref = FirebaseStorage.instance
-                                  //     .ref()
-                                  //     .child('images')
-                                  //     .child('${FirebaseAuth.instance.currentUser.uid.toString()}');
+                          
 
 
                                   try{
@@ -263,19 +257,6 @@ class _publicPageSettingsState extends State<publicPageSettings> {
                                             ),
                                           )
                                         ),
-                                        // Container(
-                                        //   width: width*0.4,
-                                        //   height: 200,
-                                        //   child: Center(
-                                        //     child: TextButton(
-                                        //         child: Icon(Icons.play_circle_outline,color: Colors.white,size: 45,),
-                                        //       onPressed: ()async{
-                                        //           print("played");
-                                        //           await _controller.play();
-                                        //       },
-                                        //     ),
-                                        //   ),
-                                        // )
                                       ],
                                     ),
                                   ],
@@ -320,46 +301,35 @@ class _publicPageSettingsState extends State<publicPageSettings> {
                             child: Container(
                               width: width*0.9,
                               child: MultipleDropDown(
-                                  placeholder: "Select Interests",
+                                  placeholder: "What are you most famous for?",
                                   values:interests,
-                                  elements: [
-                                    MultipleSelectItem.build(value: "TikToker", display: "TikToker", content:"TikToker"),
-                                    MultipleSelectItem.build(value: "Musician", display: "Musician", content:"Musician"),
-                                    MultipleSelectItem.build(value: "Actor", display: "Actor", content: "Actor"),
-                                    MultipleSelectItem.build(value: "Youtuber", display: "Youtuber", content: "Youtuber"),
-                                    MultipleSelectItem.build(value: "Facebook", display: "Facebook", content: "Facebook"),
-                                  ]
+                                 elements:<dynamic>[
+                                   "Music Stars",
+                                   "Film Stars",
+                                   "Sports Stars",
+                                   "Television Stars",
+                                   "Radio Stars",
+                                   "International Stars",
+                                   "Veterans",
+                                   "Comedy Stars",
+                                   "Social Media Stars",
+                                   "Reality TV Stars",
+                                   "Dance Stars",
+                                   "Influencers",
+                                   "Entrepreneurs",
+                                   "Entertainers",
+                                   "Creators",
+                                   "Lifestyle & Fashion Stars",
+                                   "Models",
+                                   "Motivational Leaders",
+                                   "Political & Religious Leaders",
+                                 ].map((e){
+                                   return MultipleSelectItem.build(value: e, display: e, content: e);
+                                 }).toList(),
+
                               ),
                             ),
                           ),
-                          // Center(
-                          //   child: Container(
-                          //     width: width*0.9,
-                          //     padding: EdgeInsets.only(
-                          //         left: 10, top: 7, bottom: 7, right: 20),
-                          //     decoration: BoxDecoration(
-                          //         color: Colors.white.withOpacity(0.1),
-                          //         borderRadius:
-                          //         BorderRadius.all(Radius.circular(15.0))),
-                          //     child:  SearchableDropdown.multiple(
-                          //       items: [
-                          //         DropdownMenuItem(child: Text("TikToker")),
-                          //         DropdownMenuItem(child: Text("Musician")),
-                          //         DropdownMenuItem(child: Text("YouTuber")),
-                          //         DropdownMenuItem(child: Text("Actor")),
-                          //         DropdownMenuItem(child: Text("Facebook")),
-                          //       ],
-                          //       selectedItems: [],
-                          //       hint: Text("Choose Your Interests",style: small(color: Colors.white),),
-                          //       searchHint: Text("Select any",style: small(color: Colors.white),),
-                          //       style: small(color: Colors.white),
-                          //       onChanged: (value) {
-                          //         setState(() {
-                          //
-                          //         });
-                          //       },
-                          //     ),),
-                          // ),
                           SizedBox(height: 40,),
                           Center(
                             child: authButton(text: "Update", color: Colors.white, bg: Colors.orange, onPress: ()async{

@@ -290,7 +290,7 @@ class _celebrityEditProfileState extends State<celebrityEditProfile> {
                                 "Where do you have the most followers?",
                                 style: small(color: Colors.white,size: 14),
                               ),
-                              items: <String>["Instagram", 'Facebook',"Twitter"].map<DropdownMenuItem<String>>((String value) {
+                              items: <String>["Instagram", 'Facebook',"Twitter","Youtube"].map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Text(
