@@ -65,7 +65,8 @@ celebritySignup(
           },
           "fanClub": {"promos": []},
           "fanClubMembers": [],
-          "fanClubMessages": []
+          "fanClubMessages": [],
+          "createdAt":DateTime.now()
         });
         //Add Rewards here.
 
@@ -85,7 +86,8 @@ celebritySignup(
     } catch (e) {
       return {"message": e};
     }
-  } else {
+  }
+  else {
     return {"message": "Kindly Fill All Details Properly."};
   }
 }
