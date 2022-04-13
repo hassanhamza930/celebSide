@@ -295,28 +295,39 @@ class _celebSignupState extends State<celebSignup> {
                       bg: Colors.orange,
                       onPress: () async{
 
-                        showLoading(context: context);
+                        try{
+                          showLoading(context: context);
 
-                          var status= await celebritySignup(fullName: fullName, email: email, phone: phone, countryCode: countryCode, country: country, dob: dob, password: password, mostFollowers: mostFollowers, handle: handle,hasReferral: hasReferral,referral: referral);
-                          if(status["message"]=="created"){
+                          var status = await celebritySignup(fullName: fullName,
+                              email: email,
+                              phone: phone,
+                              countryCode: countryCode,
+                              country: country,
+                              dob: dob,
+                              password: password,
+                              mostFollowers: mostFollowers,
+                              handle: handle,
+                              hasReferral: hasReferral,
+                              referral: referral);
+                          if (status["message"] == "created") {
                             Navigator.pop(context);
 
-                            Navigator.of(context)
-                                .pushAndRemoveUntil(CupertinoPageRoute(builder: (context){return celebrityNotifications();}), (Route<dynamic> route) => false);
-
-                            // Navigator.pushReplacement(
-                            //     context, CupertinoPageRoute(
-                            //     builder:(context){
-                            //       return celebrityNotifications();
-                            //     }
-                            // ));
-
+                            Navigator.of(context).pushAndRemoveUntil(
+                                CupertinoPageRoute(builder: (context) {
+                                  return celebrityNotifications();
+                                }), (Route<dynamic> route) => false);
                           }
-                          else{
+                          else {
                             Navigator.pop(context);
 
-                            showErrorDialogue(context: context,message: "${status["message"]}");
+                            showErrorDialogue(context: context,
+                                message: "${status["message"]}");
+                          }
+                        }
 
+                          catch(e){
+                            showErrorDialogue(context: context,
+                                message: e.toString());
                           }
 
 

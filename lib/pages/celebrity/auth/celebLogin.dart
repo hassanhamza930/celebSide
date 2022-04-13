@@ -124,22 +124,27 @@ class _celebLoginState extends State<celebLogin> {
                     authButton(text: "Login", color: Colors.white, bg: Colors.orange, onPress: ()async{
 
 
-                      showLoading(context: context);
+                     try{
+                       showLoading(context: context);
 
 
-                      var status=await celebrityLogin(email: email,password: password);
+                       var status=await celebrityLogin(email: email,password: password);
 
-                      if(status["message"]=="signed in"){
-                        Navigator.pop(context);
-                        Navigator.of(context)
-                            .pushAndRemoveUntil(CupertinoPageRoute(builder: (context){return celebrityHome();}), (Route<dynamic> route) => false);
+                       if(status["message"]=="signed in"){
+                         Navigator.pop(context);
+                         Navigator.of(context)
+                             .pushAndRemoveUntil(CupertinoPageRoute(builder: (context){return celebrityHome();}), (Route<dynamic> route) => false);
 
-                      }
-                      else{
-                        Navigator.pop(context);
-                        showErrorDialogue(context: context, message: "${status["message"]}");
-                      }
+                       }
+                       else{
+                         Navigator.pop(context);
+                         showErrorDialogue(context: context, message: "${status["message"]}");
+                       }
 
+                     }
+                     catch(e){
+                       showErrorDialogue(context: context, message:e.toString() );
+                     }
 
 
 
