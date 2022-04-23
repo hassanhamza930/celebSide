@@ -127,24 +127,28 @@ class _celebrityVideoRecordState extends State<celebrityVideoRecord> {
                           }
 
 
-                          await controller.startVideoRecording(finalPath);
+                          await controller.startVideoRecording();
                           setState(() {
 
                           });
                         }
 
                         else{
-                          await controller.stopVideoRecording();
-
-                          setState(() {
+                          await controller.stopVideoRecording().then((XFile file){
+                            setState(() {
                             isPressed=false;
-                          });
-                          print('stopped');
-                          print(finalPath);
+                            });
+                                print('stopped');
+                            print(finalPath);
 
-                          Navigator.push(context, CupertinoPageRoute(builder: (context){
-                          return celebrityVideoFinalize(finalPath:finalPath,reqId: widget.reqId,);
-                          }));
+                            Navigator.push(context, CupertinoPageRoute(builder: (context){
+                              return celebrityVideoFinalize(finalPath:file.path,reqId: widget.reqId,);
+                            }));
+                          });
+
+
+
+
                         }
 
 

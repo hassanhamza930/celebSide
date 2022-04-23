@@ -43,7 +43,7 @@ dependencies:
   firebase_storage: ^10.0.3
   image_picker: ^0.8.4
   flutter_inappwebview: ^5.3.2
-  google_sign_in: "^4.5.1"
+  google_sign_in:
   multi_sort: ^3.0.0
   cloud_functions:
   http:
@@ -52,6 +52,10 @@ dependencies:
   clipboard_manager:
   location: ^4.2.0
   camera:
+    git:
+      url: https://github.com/flutter/plugins
+      path: packages/camera/camera
+      ref: 9e46048ad2e1f085c1e8f6c77391fa52025e681f
   path: ^1.8.0
   path_provider:
   chewie:
