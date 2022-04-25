@@ -6,16 +6,20 @@ import "package:flutter/material.dart";
 
 calculateTotalEarnings({@required String celebId})async{
 
-  var totalEarnings=0.0;
-  var resp= await FirebaseFirestore.instance.collection("transactions").where("personId",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("from",isEqualTo:"letsvibe").get();
+  var monthlyEarnings=0.0;
+  var resp= await FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("status",isEqualTo: "complete").get();
+
   List docs=resp.docs;
+
+
   docs.forEach((element) {
-    totalEarnings+=double.parse("${element.data()["amount"]}");
+    monthlyEarnings+=((element["amount"]-element["discount"])*0.7);
   });
+
 
   return Future.delayed(Duration(milliseconds: 100),(){
     print('returned');
-    return double.parse("${totalEarnings}").floor();
+    return double.parse("${monthlyEarnings}").floor();
   });
 
 }
@@ -24,7 +28,8 @@ calculateTotalEarnings({@required String celebId})async{
 calculateMonthlyEarnings({@required String celebId})async{
 
   var monthlyEarnings=0.0;
-  var resp= await FirebaseFirestore.instance.collection("transactions").where("personId",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("from",isEqualTo:"letsvibe").get();
+  var resp= await FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("status",isEqualTo: "complete").get();
+
   List docs=resp.docs;
   DateTime monthStart= DateTime.now().subtract(Duration(days: DateTime.now().day));
 
@@ -32,7 +37,7 @@ calculateMonthlyEarnings({@required String celebId})async{
   docs.forEach((element) {
     var transactionDate=element.data()["createdAt"].toDate();
     if(transactionDate.isAfter(monthStart)){
-      monthlyEarnings+=element["amount"];
+      monthlyEarnings+=((element["amount"]-element["discount"])*0.7);
     }
 
   });
@@ -50,26 +55,25 @@ calculateLastMonthEarnings({@required String celebId})async {
   var lastMonthEarnings = 0.0;
   var resp= await FirebaseFirestore.instance.collection("transactions").where("personId",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("from",isEqualTo:"letsvibe").get();
   List docs = resp.docs;
-  DateTime monthStart = DateTime.now().subtract(Duration(days: DateTime
-      .now()
-      .day));
-  DateTime LastMonthStart = DateTime.now().subtract(Duration(days: (DateTime
-      .now()
-      .day + 30)));
+  DateTime monthStart = DateTime.now().subtract(Duration(days: DateTime.now().day));
+  DateTime LastMonthStart = DateTime.now().subtract(Duration(days: (DateTime.now().day + 30)));
 
 
   docs.forEach((element) {
-    var transactionDate = element.data()["createdAt"].toDate();
-    if (transactionDate.isAfter(LastMonthStart) &&
-        transactionDate.isBefore(monthStart)) {
-      lastMonthEarnings += element["amount"];
+    DateTime transactionDate=element.data()["createdAt"].toDate();
+    if( transactionDate.isAfter(monthStart) && transactionDate.isBefore(LastMonthStart) ){
+      lastMonthEarnings+=((element["amount"]-element["discount"])*0.7);
     }
+
   });
 
-  return Future.delayed(Duration(milliseconds: 100), () {
+
+  return Future.delayed(Duration(milliseconds: 100),(){
     print('returned');
     return double.parse("${lastMonthEarnings}").floor();
   });
+
+
 }
 
 

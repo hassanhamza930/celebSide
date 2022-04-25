@@ -48,28 +48,13 @@ class _celebrityBookingsState extends State<celebrityBookings>
         backgroundColor: Colors.transparent,
         body: Center(
           child: Container(
-            child: NotificationListener<ScrollEndNotification>(
-              onNotification: (scrollEnd) {
-                var metrics = scrollEnd.metrics;
-                if (metrics.atEdge) {
-                  if (metrics.pixels == 0) {
-                    print('At top');
-                    setState(() {
-                      pageHeight = 1000;
-                    });
-                    print(pageHeight);
-                  } else {
-                    print('At bottom');
-                    setState(() {
-                      pageHeight += 1000;
-                    });
-                    print(pageHeight);
-                  }
-                }
-                return true;
-              },
+            child: Align(
+              alignment: Alignment.topCenter,
               child: ListView(
+                // physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
                 children: [
+
                   topBar == 0
                       ? StreamBuilder(
                         stream: FirebaseFirestore.instance.collection("requests").where("celebrity",isEqualTo: FirebaseAuth.instance.currentUser.uid).where("filtered",isEqualTo:false).where('status',isEqualTo: "pending").snapshots(),
@@ -468,7 +453,7 @@ class _celebrityBookingsState extends State<celebrityBookings>
                             DateTime monthStart= DateTime.now().subtract(Duration(days: DateTime.now().day));
                             DateTime LastMonthStart= DateTime.now().subtract(Duration(days: (DateTime.now().day+30)    ));
 
-                            
+
                             QuerySnapshot doc=snapshot.data;
                             doc.docs. forEach((element) {
                             Map data=element.data();
@@ -484,7 +469,7 @@ class _celebrityBookingsState extends State<celebrityBookings>
                               totalEarnings+=element["amount"];
 
                             });
-                            
+
                             return Container(
                                 padding: EdgeInsets.only(top: 20, bottom: 20),
                                 color: Colors.transparent,
@@ -853,6 +838,8 @@ class _celebrityBookingsState extends State<celebrityBookings>
                           }
                         }
                       ),
+
+
                   Container(
                       color: Colors.white.withOpacity(0.5),
                       child: ListView(
@@ -1017,7 +1004,8 @@ class _celebrityBookingsState extends State<celebrityBookings>
                             height: 20,
                           ),
                           Container(
-                            height: pageHeight.toDouble(),
+                            margin: EdgeInsets.only(bottom: 50),
+                            // height: pageHeight.toDouble(),
                             child: pages[subTab]
                           ),
                         ],
